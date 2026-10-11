@@ -1,0 +1,24 @@
+[GPU clock 2h59m53s] start v2_reserve B=256 sets=math n=20 seed=0 slots=32
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7471.80it/s]
+[3h03m27s] v2_reserve B=256 math_384: n=758 ok=True pred='15x - 80'
+[3h04m52s] v2_reserve B=256 math_218: n=1056 ok=True pred='(-1, 6)'
+[3h05m29s] v2_reserve B=256 math_38: n=1240 ok=True pred='2000'
+[3h05m35s] v2_reserve B=256 math_370: n=1285 ok=True pred='-41'
+[3h05m42s] v2_reserve B=256 math_98: n=1343 ok=True pred='2k + 2'
+[3h05m42s] v2_reserve B=256 math_452: n=1344 ok=True pred='143'
+[3h06m05s] v2_reserve B=256 math_262: n=1448 ok=True pred='4'
+[3h07m09s] v2_reserve B=256 math_187: n=1701 ok=True pred='7'
+[3h07m13s] v2_reserve B=256 math_97: n=1719 ok=False pred='E'
+[3h07m18s] v2_reserve B=256 math_265: n=1738 ok=True pred='4005'
+[3h07m54s] v2_reserve B=256 math_318: n=1886 ok=False pred='\\dfrac{9a + 11}{20}'
+[3h08m01s] v2_reserve B=256 math_6: n=1917 ok=True pred='27'
+[3h09m20s] v2_reserve B=256 math_16: n=2279 ok=True pred='-50'
+[3h10m19s] v2_reserve B=256 math_146: n=2542 ok=True pred='\\frac{\\sqrt{3}}{3}'
+[3h11m23s] v2_reserve B=256 math_91: n=2837 ok=True pred='1'
+[3h12m10s] v2_reserve B=256 math_209: n=3060 ok=True pred='16'
+[3h12m12s] v2_reserve B=256 math_14: n=3072 ok=False pred='None'
+[3h12m12s] v2_reserve B=256 math_141: n=3072 ok=False pred='None'
+[3h12m12s] v2_reserve B=256 math_485: n=3072 ok=False pred='None'
+[3h12m12s] v2_reserve B=256 math_30: n=3072 ok=False pred='None'
+[GPU clock 3h12m12s] done v2_reserve_B256_math_D2: 55 tok/s, acc 14/20

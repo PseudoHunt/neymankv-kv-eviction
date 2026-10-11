@@ -1,0 +1,24 @@
+[GPU clock 2h46m12s] start v2_reserve B=256 sets=forced n=20 seed=0 slots=32
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 8007.69it/s]
+[2h48m26s] v2_reserve B=256 forced_194: n=462 ok=True pred='10'
+[2h48m34s] v2_reserve B=256 forced_1178: n=485 ok=True pred='17'
+[2h48m52s] v2_reserve B=256 forced_867: n=535 ok=True pred='7'
+[2h49m14s] v2_reserve B=256 forced_851: n=608 ok=True pred='110'
+[2h49m53s] v2_reserve B=256 forced_290: n=742 ok=True pred='390'
+[2h49m57s] v2_reserve B=256 forced_743: n=746 ok=True pred='8'
+[2h50m20s] v2_reserve B=256 forced_483: n=824 ok=True pred='40'
+[2h50m32s] v2_reserve B=256 forced_761: n=856 ok=True pred='27'
+[2h50m36s] v2_reserve B=256 forced_498: n=862 ok=True pred='40'
+[2h51m12s] v2_reserve B=256 forced_884: n=990 ok=True pred='50'
+[2h51m19s] v2_reserve B=256 forced_262: n=1008 ok=True pred='270'
+[2h51m34s] v2_reserve B=256 forced_259: n=1056 ok=False pred='166'
+[2h51m43s] v2_reserve B=256 forced_1035: n=1080 ok=False pred='40'
+[2h53m28s] v2_reserve B=256 forced_913: n=1498 ok=False pred='18'
+[2h53m46s] v2_reserve B=256 forced_1239: n=1559 ok=True pred='50'
+[2h54m34s] v2_reserve B=256 forced_107: n=1752 ok=True pred='3'
+[2h54m43s] v2_reserve B=256 forced_797: n=1779 ok=True pred='540'
+[2h59m42s] v2_reserve B=256 forced_1012: n=3072 ok=False pred='None'
+[2h59m45s] v2_reserve B=256 forced_308: n=3072 ok=False pred='None'
+[2h59m48s] v2_reserve B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 2h59m48s] done v2_reserve_B256_forced_D2: 32 tok/s, acc 14/20

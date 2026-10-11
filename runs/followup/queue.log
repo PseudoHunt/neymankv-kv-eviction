@@ -1,0 +1,38 @@
+[followup clock 0h00m00s] launched A_full_B256_math-math_x-gsm-gsm_x_s1
+[followup clock 0h00m00s] launched A_random_B256_math-math_x-gsm-gsm_x_s1
+[followup clock 0h00m00s] launched A_neymankv_v2_B256_math-math_x-gsm-gsm_x_s1
+[followup clock 0h50m12s] finished A:random:256:math,math_x,gsm,gsm_x:1 exit=0 in 50.2 min
+[followup clock 0h50m12s] launched A_full_B256_math-math_x-gsm-gsm_x_s2
+[followup clock 1h20m24s] finished A:neymankv_v2:256:math,math_x,gsm,gsm_x:1 exit=0 in 80.4 min
+[followup clock 1h20m24s] launched A_random_B256_math-math_x-gsm-gsm_x_s2
+Sun Oct 11 12:48:15 UTC 2026 launching D1
+Sun Oct 11 13:17:13 UTC 2026 D1 exit 0
+Sun Oct 11 13:17:13 UTC 2026 launching A neymankv_v2 seed 2
+Sun Oct 11 13:18:45 UTC 2026 D2 launch random_reserve forced
+Sun Oct 11 13:26:30 UTC 2026 G launch full 0.75 ruler4k 20 (free 14471 MiB)
+Sun Oct 11 13:27:29 UTC 2026 D2 random_reserve forced exit 0
+Sun Oct 11 13:27:29 UTC 2026 D2 launch random_reserve math
+Sun Oct 11 13:36:31 UTC 2026 G launch random 0.75 ruler4k 20 (free 14309 MiB)
+Sun Oct 11 13:36:40 UTC 2026 D2 random_reserve math exit 0
+Sun Oct 11 13:36:40 UTC 2026 D2 launch v2_reserve forced
+Sun Oct 11 13:50:22 UTC 2026 D2 v2_reserve forced exit 0
+Sun Oct 11 13:50:22 UTC 2026 D2 launch v2_reserve math
+Sun Oct 11 13:56:02 UTC 2026 G launch v1_prop 0.75 ruler4k 20 (free 14101 MiB)
+Sun Oct 11 14:02:46 UTC 2026 D2 v2_reserve math exit 0
+Sun Oct 11 14:02:46 UTC 2026 D2 launch random_oracle forced
+Sun Oct 11 14:11:16 UTC 2026 D2 random_oracle forced exit 0
+Sun Oct 11 14:11:16 UTC 2026 D2 launch random_oracle math
+Sun Oct 11 14:19:04 UTC 2026 G launch v1_prop_noweight 0.75 ruler4k 20 (free 14309 MiB)
+Sun Oct 11 14:19:12 UTC 2026 D2 random_oracle math exit 0
+Sun Oct 11 14:19:12 UTC 2026 D2 launch v2_oracle forced
+Sun Oct 11 14:28:51 UTC 2026 A v2 s2 exit 0
+Sun Oct 11 14:30:39 UTC 2026 D2 v2_oracle forced exit 0
+Sun Oct 11 14:30:39 UTC 2026 D2 launch v2_oracle math
+Sun Oct 11 14:35:05 UTC 2026 G launch random_rw 0.75 ruler4k 20 (free 19231 MiB)
+Sun Oct 11 14:37:55 UTC 2026 D2 v2_oracle math exit 0
+Sun Oct 11 14:37:55 UTC 2026 D2 done
+Sun Oct 11 14:38:05 UTC 2026 G launch expected_attention 0.75 ruler4k 20 (free 14737 MiB)
+Sun Oct 11 14:57:36 UTC 2026 G launch full 0.75 ruler8k 20 (free 14065 MiB)
+Sun Oct 11 15:08:07 UTC 2026 G launch random 0.75 ruler8k 20 (free 12581 MiB)
+Sun Oct 11 15:09:37 UTC 2026 G launch v1_prop 0.75 ruler8k 20 (free 13821 MiB)
+Sun Oct 11 15:20:07 UTC 2026 WRAP-UP: killed G orchestrator + ruler8k random/v1_prop (PI wrap-up instruction)

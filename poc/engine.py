@@ -44,7 +44,10 @@ class Engine:
         self.V = torch.zeros_like(self.K)
         self.bias = torch.full((self.nL, self.S, self.Hkv, cap), NEG, dtype=torch.float32, **z)
         self.pos = torch.full((self.nL, self.S, self.Hkv, cap), -1, dtype=torch.long, **z)
-        self.meta = {k: torch.zeros(self.nL, self.S, self.Hkv, cap, dtype=dt, **z) for k, dt in self.policy.meta_fields.items()}
+        # meta_fields values: dtype (one scalar per token) or (dtype, width) for a vector per token
+        self.meta = {k: (torch.zeros(self.nL, self.S, self.Hkv, cap, dtype=dt, **z) if not isinstance(dt, tuple)
+                         else torch.zeros(self.nL, self.S, self.Hkv, cap, dt[1], dtype=dt[0], **z))
+                     for k, dt in self.policy.meta_fields.items()}
         self.qwin = torch.zeros(self.nL, self.S, self.Hq, WINDOW_Q, self.d, dtype=self.dtype, **z)
         self.L = torch.zeros(self.S, dtype=torch.long, **z)
         self.gen_rng = torch.Generator(device=self.dev).manual_seed(seed + 99991)  # eviction randomness

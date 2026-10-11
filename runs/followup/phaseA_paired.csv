@@ -1,0 +1,28 @@
+comparison,n_problems,mean_a,mean_b,diff,ci_lo,ci_hi,wins,losses,ties,excludes_0,dataset,problems
+neymankv_v2 - random,120,0.5583333333333333,0.575,-0.016666666666666666,-0.058333333333333334,0.025,8,12,100,False,math,all
+neymankv_v2 - full,120,0.5583333333333333,0.575,-0.016666666666666666,-0.06666666666666667,0.03333333333333333,13,15,92,False,math,all
+random - full,120,0.575,0.575,0.0,-0.05416666666666667,0.05,14,14,92,False,math,all
+neymankv_v2 - random,40,0.65,0.675,-0.025,-0.1,0.0375,2,3,35,False,math,PoC original 40
+neymankv_v2 - full,40,0.65,0.6375,0.0125,-0.1,0.1125,6,4,30,False,math,PoC original 40
+random - full,40,0.675,0.6375,0.0375,-0.0625,0.1375,6,3,31,False,math,PoC original 40
+neymankv_v2 - random,80,0.5125,0.525,-0.0125,-0.0625,0.04375,6,9,65,False,math,new
+neymankv_v2 - full,80,0.5125,0.54375,-0.03125,-0.0875,0.025,7,11,62,False,math,new
+random - full,80,0.525,0.54375,-0.01875,-0.08125,0.04375,8,11,61,False,math,new
+neymankv_v2 - random,80,0.76875,0.7875,-0.01875,-0.075,0.0375,7,8,65,False,gsm,all
+neymankv_v2 - full,80,0.76875,0.74375,0.025,-0.04375,0.09390624999999772,14,11,55,False,gsm,all
+random - full,80,0.7875,0.74375,0.04375,-0.01875,0.10625,14,8,58,False,gsm,all
+neymankv_v2 - random,40,0.7125,0.7375,-0.025,-0.125,0.0625,5,5,30,False,gsm,PoC original 40
+neymankv_v2 - full,40,0.7125,0.7,0.0125,-0.0875,0.1125,7,6,27,False,gsm,PoC original 40
+random - full,40,0.7375,0.7,0.0375,-0.0375,0.1125,6,3,31,False,gsm,PoC original 40
+neymankv_v2 - random,40,0.825,0.8375,-0.0125,-0.0625,0.0375,2,3,35,False,gsm,new
+neymankv_v2 - full,40,0.825,0.7875,0.0375,-0.05,0.1375,7,5,28,False,gsm,new
+random - full,40,0.8375,0.7875,0.05,-0.05,0.15,8,5,27,False,gsm,new
+neymankv_v2 - random,200,0.6425,0.66,-0.0175,-0.0525,0.015,15,20,165,False,all,all
+neymankv_v2 - full,200,0.6425,0.6425,0.0,-0.0425,0.0425,27,26,147,False,all,all
+random - full,200,0.66,0.6425,0.0175,-0.0225,0.0575,28,22,150,False,all,all
+neymankv_v2 - random,80,0.68125,0.70625,-0.025,-0.0875,0.03125,7,8,65,False,all,PoC original 40
+neymankv_v2 - full,80,0.68125,0.66875,0.0125,-0.0625,0.0875,13,10,57,False,all,PoC original 40
+random - full,80,0.70625,0.66875,0.0375,-0.01875,0.1,12,6,62,False,all,PoC original 40
+neymankv_v2 - random,120,0.6166666666666667,0.6291666666666667,-0.0125,-0.05,0.029166666666666667,8,12,100,False,all,new
+neymankv_v2 - full,120,0.6166666666666667,0.625,-0.008333333333333333,-0.058333333333333334,0.041666666666666664,14,16,90,False,all,new
+random - full,120,0.6291666666666667,0.625,0.004166666666666667,-0.04583333333333333,0.05416666666666667,16,16,88,False,all,new

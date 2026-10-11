@@ -34,6 +34,18 @@ def problems():
                         gold=g[i]["answer"].split("####")[-1].strip().replace(",", ""),
                         suffix_extra=" After the answer, restate the access code.",
                         forced_prefix=FORCED_PREFIX))
+    # Follow-up (Phase A) extensions, disjoint from everything above: 80 more MATH500 (16 per level, seed 1) as set
+    # "math_x", and 40 more GSM8K as set "gsm_x". The PoC's original lists keep their set names "math"/"gsm".
+    rng1 = np.random.default_rng(1)
+    used_m = {int(p["pid"].split("_")[1]) for p in out if p["set"] == "math"}
+    for lvl in range(1, 6):
+        idx = [i for i in range(len(m)) if m[i]["level"] == lvl and i not in used_m]
+        for i in sorted(rng1.choice(idx, 16, replace=False).tolist()):
+            out.append(dict(pid=f"math_{i}", set="math_x", question=m[i]["problem"], gold=m[i]["answer"], level=lvl))
+    rest = [i for i in range(len(g)) if i not in set(pick)]
+    for i in rng1.choice(rest, 40, replace=False).tolist():
+        out.append(dict(pid=f"gsm_{i}", set="gsm_x", question=g[i]["question"],
+                        gold=g[i]["answer"].split("####")[-1].strip().replace(",", "")))
     return out
 
 

@@ -3,6 +3,7 @@
 Protected set (all but rkvhash_released): the whole prompt (contains the first 4 tokens) + last `recent`
 generated tokens. Candidates = generated tokens older than the recent window; B of them are kept."""
 import math
+import os
 
 import torch
 import torch.nn.functional as F
@@ -79,12 +80,16 @@ class Protected(Policy):
 class Random(Protected):
     """Uniform random eviction per head at each compression (fresh randomness), no reweighting."""
 
-    def choose(self, s, cand, P):
+    def choose(self, s, cand, P, exclude=None, brow=None):
         e = self.e
         R, M = e.nL * e.Hkv, len(cand)
         r = torch.rand(R, M, generator=e.gen_rng, device=e.dev)
-        sel = torch.topk(r, e.budget, dim=-1, largest=False).indices.sort(-1).values
-        return cand[sel], torch.zeros(R, e.budget, device=e.dev)
+        if exclude is None:
+            sel = torch.topk(r, e.budget, dim=-1, largest=False).indices.sort(-1).values
+            return cand[sel], torch.zeros(R, e.budget, device=e.dev)
+        r = torch.where(exclude, torch.full_like(r, 2.0), r)
+        rank = torch.argsort(torch.argsort(r, dim=-1), dim=-1)
+        return rank < brow[:, None], torch.zeros(R, M, device=e.dev)               # mask form (reserve path)
 
 
 class RandomHT(Random):
@@ -116,6 +121,69 @@ class RandomHT(Random):
         tmp.scatter_(1, kept, logw)
         e.meta["logw"][:, s] = tmp.view(e.nL, e.Hkv, -1)
         bias = logw if self.clip is None else logw.clamp(max=self.clip)
+        self.max_bias[s] = max(self.max_bias[s], float(bias.max()))
+        return kept, bias
+
+
+class AgeKV(Protected):
+    """Phase E2. Target marginal inclusion pi(a) = clip(c * profile[l, h, a // 64], 1/50, 1), c solved per head so the
+    expected kept count is B. Survivors are thinned with kappa = pi_now / pi_cum (new candidates: kappa = pi_now),
+    so a token's realised inclusion probability is its current target; systematic PPS (random order) keeps exactly B
+    per head. Bias = -log pi_cum (Horvitz-Thompson), <= log 50."""
+    meta_fields = {"picum": torch.float32}
+    PI_MIN = 1 / 50
+
+    def __init__(self, e, profile_path=None):
+        super().__init__(e)
+        import numpy as np
+        path = profile_path or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                            "runs", "followup", "profiles", "R1-Distill-Qwen-1.5B.npz")
+        prof = np.load(path)["mean"]                                       # [nL, Hkv, bins]
+        prof = np.maximum(prof, prof[prof > 0].min())
+        self.prof = torch.tensor(prof, dtype=torch.float64, device=e.dev).reshape(e.nL * e.Hkv, -1)
+        self.max_bias = [0.0] * e.S
+
+    def on_prefill(self, l, s, k_pre, k_post):
+        if l == 0:
+            self.max_bias[s] = 0.0
+
+    def on_insert(self, l, ar, idx, k_pre, k_post):
+        self.e.meta["picum"][l, ar, :, idx] = 1.0
+
+    def choose(self, s, cand, P):
+        e = self.e
+        R, M, B = e.nL * e.Hkv, len(cand), e.budget
+        age = self.n_gen - (self._rows(e.pos, s, cand) - P)
+        f = self.prof.gather(1, torch.clamp(age // 64, max=self.prof.shape[1] - 1))
+        picum = self._rows(e.meta["picum"], s, cand).double()
+        kappa = lambda lc: torch.minimum(torch.ones_like(f), torch.clamp(torch.exp(lc) * f, self.PI_MIN, 1.0) / picum)
+        lo = torch.full((R, 1), -60.0, device=e.dev, dtype=torch.float64)
+        hi = torch.full((R, 1), 60.0, device=e.dev, dtype=torch.float64)
+        for _ in range(80):
+            mid = (lo + hi) / 2
+            under = kappa(mid).sum(-1, keepdim=True) < B
+            lo, hi = torch.where(under, mid, lo), torch.where(under, hi, mid)
+        k = kappa(hi)
+        k = k * (B / k.sum(-1, keepdim=True)).clamp(max=1.0)                   # exact sum B (only scales down)
+        k = torch.minimum(k * B / k.sum(-1, keepdim=True), torch.ones_like(k))
+        # systematic PPS in a random order, exactly B per row
+        order = torch.argsort(torch.rand(R, M, generator=e.gen_rng, device=e.dev), dim=-1)
+        cum = torch.cumsum(k.gather(1, order), dim=-1)
+        cum = cum / cum[:, -1:] * B
+        pts = torch.rand(R, 1, generator=e.gen_rng, device=e.dev, dtype=torch.float64) + torch.arange(B, device=e.dev)
+        pick = torch.searchsorted(cum, pts, right=True).clamp(max=M - 1)
+        sel = order.gather(1, pick).sort(-1).values
+        # guard against duplicate picks from float residue: fall back to top-kappa fill
+        dup = (sel[:, 1:] == sel[:, :-1]).any(-1)
+        if dup.any():
+            alt = torch.topk(k + 1e-9 * torch.rand_like(k), B, dim=-1).indices.sort(-1).values
+            sel = torch.where(dup[:, None], alt, sel)
+        newpi = (picum * k).gather(1, sel)
+        kept = cand[sel]
+        tmp = e.meta["picum"][:, s].reshape(R, -1).clone()
+        tmp.scatter_(1, kept, newpi.float())
+        e.meta["picum"][:, s] = tmp.view(e.nL, e.Hkv, -1)
+        bias = (-torch.log(newpi)).float()
         self.max_bias[s] = max(self.max_bias[s], float(bias.max()))
         return kept, bias
 
@@ -202,28 +270,36 @@ class NeymanKV2(NeymanKV):
     Chunk budget ∝ N_chunk * (B/(B+64))^(age/64) (Webster), then inside each chunk hash buckets get a proportional
     share with a 1-slot floor (when feasible) and a uniform reservoir; bias log(N_h/n_h) per (chunk, bucket)."""
 
-    def __init__(self, e, weight=True, floor=1):
+    def __init__(self, e, weight=True, floor=1, strata=True, shared=False):
         Protected.__init__(self, e)
         self.weight, self.floor, self.one = weight, floor, False
+        self.strata, self.shared = strata, shared   # Phase B ablations: one hash bucket; keep-set shared across KV heads
         self.CH = e.interval
         self.nb = e.max_new // self.CH + 1
-        self.NB = 2 ** self.BITS
+        self.NB = 2 ** self.BITS if strata else 1
         self.H = self.nb * self.NB
         self.r = e.budget / (e.budget + e.interval)
         self.proj = _proj((e.nL, e.Hkv, e.d, self.BITS), 2929, device=e.dev)
         self.center = torch.zeros(e.nL, e.S, e.Hkv, e.d, device=e.dev)
         self.seen = torch.zeros(e.S, e.nL * e.Hkv, self.H, dtype=torch.long, device=e.dev)
 
-    def choose(self, s, cand, P):
+    def choose(self, s, cand, P, exclude=None, brow=None):
         e = self.e
         R, nb, NB = e.nL * e.Hkv, self.nb, self.NB
         gpos = self._rows(e.pos, s, cand) - P
         chunk = gpos // self.CH
-        lab = chunk * NB + self._rows(e.meta["code"], s, cand)
-        new = ~self._rows(e.meta["seen"], s, cand)
-        self.seen[s].scatter_add_(1, lab, new.long())
-        e.meta["seen"][:, s][:, :, cand] = True
-        present = torch.zeros(R, self.H, dtype=torch.long, device=e.dev).scatter_add_(1, lab, torch.ones_like(lab))
+        lab = chunk * NB + (self._rows(e.meta["code"], s, cand) if self.strata else 0)
+        if exclude is not None:   # reserved tokens leave the sampling frame (and are not counted as seen yet)
+            lab = torch.where(exclude, torch.full_like(lab, -1), lab)
+        labc = lab.clamp_min(0)
+        new = ~self._rows(e.meta["seen"], s, cand) & (lab >= 0)
+        self.seen[s].scatter_add_(1, labc, new.long())
+        if exclude is None:
+            e.meta["seen"][:, s][:, :, cand] = True
+        else:
+            sf = self._rows(e.meta["seen"], s, cand) | (lab >= 0)
+            e.meta["seen"][:, s][:, :, cand] = sf.view(e.nL, e.Hkv, -1)
+        present = torch.zeros(R, self.H, dtype=torch.long, device=e.dev).scatter_add_(1, labc, (lab >= 0).long())
         Nseen = torch.maximum(self.seen[s], present)
         # level 1: chunk budgets with the explicit recency prior
         n_gen = self.n_gen
@@ -231,7 +307,7 @@ class NeymanKV2(NeymanKV):
         c_seen = Nseen.view(R, nb, NB).sum(-1)
         age = (n_gen - (torch.arange(nb, device=e.dev) * self.CH + self.CH / 2)).clamp_min(0)
         prior = c_seen.double() * self.r ** (age / self.CH)
-        Bv = torch.full((R,), e.budget, device=e.dev)
+        Bv = torch.full((R,), e.budget, device=e.dev) if brow is None else brow
         nc = AB.webster(AB.waterfill(prior + 1e-300 * (c_present > 0), c_present, Bv, floor=0), c_present, Bv, floor=0)
         # level 2: hash buckets inside each chunk, proportional on seen counts, 1-slot floor, Webster
         pr, sr = present.view(R * nb, NB), Nseen.view(R * nb, NB)
@@ -241,11 +317,65 @@ class NeymanKV2(NeymanKV):
             sh = AB.waterfill(sr[rows].double(), pr[rows], nc.view(-1)[rows], floor=self.floor)
             n[rows] = AB.webster(sh, pr[rows], nc.view(-1)[rows], floor=self.floor)
         n = n.view(R, self.H)
-        mask = AB.select_bottom(lab, self._rows(e.meta["prio"], s, cand).double(), n)
-        bias = torch.log(Nseen.gather(1, lab).double() / n.gather(1, lab).clamp_min(1).double()).float()
+        prio = self._rows(e.meta["prio"], s, cand).double()
+        if self.shared:   # same priorities in every KV head of a layer -> identical keep-sets (needs strata=False)
+            prio = prio.view(e.nL, e.Hkv, -1)[:, :1].expand(-1, e.Hkv, -1).reshape(R, -1)
+        mask = AB.select_bottom(lab, prio, n)
+        bias = torch.log(Nseen.gather(1, labc).double() / n.gather(1, labc).clamp_min(1).double()).float()
         if not self.weight:
             bias = torch.zeros_like(bias)
+        if exclude is not None:
+            return mask, bias                                                     # mask form (reserve path)
         return self._take(mask, cand.expand(R, -1), bias)
+
+
+def make_reserve(base_cls, kind, k=8, **base_kw):
+    """Reserve up to k slots per head with pi=1, bias 0, outside the base sampler (which gets B - r per head).
+    kind='singleton': centred pre-RoPE 8-bit bucket holds no other candidate in that head (oldest first).
+    kind='oracle': generated tokens inside the forced prefix (first k generated tokens): retention upper bound."""
+
+    class Reserved(base_cls):
+        meta_fields = dict(getattr(base_cls, "meta_fields", {}), rcode=torch.long)
+
+        def __init__(self, e):
+            base_cls.__init__(self, e, **base_kw)
+            self.rproj = _proj((e.nL, e.Hkv, e.d, 8), 2929, device=e.dev)
+            self.rcenter = torch.zeros(e.nL, e.S, e.Hkv, e.d, device=e.dev)
+
+        def on_prefill(self, l, s, k_pre, k_post):
+            base_cls.on_prefill(self, l, s, k_pre, k_post)
+            self.rcenter[l, s] = k_pre.float().mean(1)
+
+        def on_insert(self, l, ar, idx, k_pre, k_post):
+            base_cls.on_insert(self, l, ar, idx, k_pre, k_post)
+            code = _codes((k_pre.float() - self.rcenter[l])[:, :, None, :], self.rproj[l][None]).squeeze(-1)
+            self.e.meta["rcode"][l, ar, :, idx] = code
+
+        def choose(self, s, cand, P):
+            e = self.e
+            R, M = e.nL * e.Hkv, len(cand)
+            pos = self._rows(e.pos, s, cand)
+            if kind == "singleton":
+                code = self._rows(e.meta["rcode"], s, cand)
+                occ = torch.zeros(R, 256, dtype=torch.long, device=e.dev).scatter_add_(1, code, torch.ones_like(code))
+                elig = occ.gather(1, code) == 1
+            elif kind == "oracle":
+                elig = (pos - P) < k
+            else:
+                raise ValueError(kind)
+            key = torch.where(elig, pos.double(), torch.full_like(pos, 1 << 40).double())   # oldest first
+            rank = torch.argsort(torch.argsort(key, dim=-1), dim=-1)
+            res = elig & (rank < k)
+            brow = e.budget - res.sum(-1)
+            mask, bias = base_cls.choose(self, s, cand, P, exclude=res, brow=brow)
+            mask = mask & ~res
+            total = mask | res
+            assert torch.all(total.sum(-1) == e.budget), total.sum(-1)
+            bias = torch.where(res, torch.zeros_like(bias), bias)
+            self.n_reserved = getattr(self, "n_reserved", []) + [float(res.sum(-1).float().mean())]
+            return self._take(total, cand.expand(R, -1), bias)
+
+    return Reserved
 
 
 class RKVFixed(Protected):
@@ -293,6 +423,38 @@ class RKVFixed(Protected):
         sc = aw.view(e.nL, e.Hkv, e.G, L).max(2).values.reshape(R, 1, L)
         sc = F.max_pool1d(sc, kernel_size=self.KERNEL, padding=self.KERNEL // 2, stride=1)[:, 0, cand]
         final = self.LAM * sc - (1 - self.LAM) * red
+        sel = torch.topk(final, e.budget, dim=-1).indices.sort(-1).values
+        return cand[sel], torch.zeros(R, e.budget, device=e.dev)
+
+
+class RKV(Protected):
+    """R-KV (Zefan-Cai/R-KV, HuggingFace/rkv/compression/r1_kv.py + utils.py), correct sign:
+    final = mix_lambda * attn - (1 - mix_lambda) * similarity, mix_lambda=0.07, kernel 7, window 8 queries,
+    attention = softmax over non-window keys of max-over-GQA-group logits, mean over window queries, max_pool;
+    similarity = cosine-similarity matrix (diag 0, per row the last key with sim > 0.5 zeroed), mean over rows, softmax.
+    Ported inside our protected set: scored over the candidates; keeps the top-B candidates."""
+    LAM, KERNEL, THRESH = 0.07, 7, 0.5
+
+    def choose(self, s, cand, P):
+        e = self.e
+        L = int(e.L[s])
+        R, M = e.nL * e.Hkv, len(cand)
+        W = e.qwin.shape[3]
+        q = e.qwin[:, s].float().view(e.nL, e.Hkv, e.G, W, e.d)
+        k = e.K[:, s, :, :L].float()                                                    # [nL, Hkv, L, d]
+        aw = torch.einsum("lhgwd,lhnd->lhgwn", q, k) / math.sqrt(e.d)
+        aw = aw.max(dim=2).values[..., :L - W]                                           # max-pool over the group
+        aw = torch.softmax(aw, dim=-1).mean(dim=-2)                                      # [nL, Hkv, L-W]
+        aw = F.max_pool1d(aw.reshape(R, 1, -1), kernel_size=self.KERNEL, padding=self.KERNEL // 2, stride=1)[:, 0]
+        attn = aw[:, cand]
+        kc = k.reshape(R, L, e.d)[:, cand]
+        kn = kc / (kc.norm(dim=-1, keepdim=True) + 1e-8)
+        sim = kn @ kn.transpose(-1, -2)
+        sim.diagonal(dim1=-2, dim2=-1).zero_()
+        idx = torch.where(sim > self.THRESH, torch.arange(M, device=e.dev).view(1, 1, M), torch.zeros_like(sim, dtype=torch.long))
+        sim.scatter_(-1, idx.max(dim=-1).values.unsqueeze(-1), 0)
+        simscore = torch.softmax(sim.mean(dim=-2), dim=-1)
+        final = self.LAM * attn - (1 - self.LAM) * simscore
         sel = torch.topk(final, e.budget, dim=-1).indices.sort(-1).values
         return cand[sel], torch.zeros(R, e.budget, device=e.dev)
 
@@ -348,6 +510,16 @@ POLICIES = {
     "neymankv_noweight": lambda e: NeymanKV(e, weight=False),
     "neymankv_nofloor": lambda e: NeymanKV(e, floor=0),
     "neymankv_v2": NeymanKV2,
+    "v2_nostrata": lambda e: NeymanKV2(e, strata=False),
+    "v2_noweight": lambda e: NeymanKV2(e, weight=False),
+    "v2_nofloor": lambda e: NeymanKV2(e, floor=0),
+    "v2_decay_only": lambda e: NeymanKV2(e, strata=False, shared=True),
+    "rkv": RKV,
+    "agekv": AgeKV,
+    "random_reserve": make_reserve(Random, "singleton"),
+    "v2_reserve": make_reserve(NeymanKV2, "singleton"),
+    "random_oracle": make_reserve(Random, "oracle", k=20),
+    "v2_oracle": make_reserve(NeymanKV2, "oracle", k=20),
     "random_ht": RandomHT,
     "random_ht_clip": lambda e: RandomHT(e, clip=math.log(50)),
     "neymankv_v2_noweight": lambda e: NeymanKV2(e, weight=False),

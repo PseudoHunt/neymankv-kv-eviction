@@ -1,0 +1,1 @@
+{"method": "full", "ratio": 0.75, "dataset": "ruler8k", "n": 260, "n_contexts": 260, "wall_s": 697.791476726532, "peak_mem_gb": 9.910062313079834}

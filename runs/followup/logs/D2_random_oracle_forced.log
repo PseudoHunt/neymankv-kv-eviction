@@ -1,0 +1,24 @@
+[GPU clock 3h12m17s] start random_oracle B=256 sets=forced n=20 seed=0 slots=32
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7927.33it/s]
+[3h13m42s] random_oracle B=256 forced_194: n=450 ok=False pred='\\$10'
+[3h14m09s] random_oracle B=256 forced_851: n=590 ok=True pred='110'
+[3h14m42s] random_oracle B=256 forced_483: n=771 ok=True pred='40'
+[3h14m53s] random_oracle B=256 forced_743: n=826 ok=True pred='8'
+[3h14m59s] random_oracle B=256 forced_1178: n=853 ok=True pred='17'
+[3h15m08s] random_oracle B=256 forced_259: n=893 ok=False pred='166'
+[3h15m16s] random_oracle B=256 forced_761: n=934 ok=True pred='27'
+[3h15m32s] random_oracle B=256 forced_867: n=1019 ok=True pred='7'
+[3h15m45s] random_oracle B=256 forced_797: n=1088 ok=True pred='540'
+[3h15m49s] random_oracle B=256 forced_1035: n=1103 ok=False pred='40'
+[3h15m53s] random_oracle B=256 forced_913: n=1117 ok=False pred='18'
+[3h16m09s] random_oracle B=256 forced_498: n=1212 ok=True pred='40'
+[3h16m12s] random_oracle B=256 forced_1239: n=1221 ok=True pred='50\\%'
+[3h16m18s] random_oracle B=256 forced_262: n=1251 ok=True pred='270'
+[3h16m39s] random_oracle B=256 forced_107: n=1380 ok=True pred='3'
+[3h16m44s] random_oracle B=256 forced_290: n=1405 ok=True pred='390'
+[3h16m57s] random_oracle B=256 forced_884: n=1480 ok=True pred='50'
+[3h18m04s] random_oracle B=256 forced_308: n=1940 ok=True pred='6'
+[3h20m41s] random_oracle B=256 forced_1012: n=3072 ok=False pred='None'
+[3h20m43s] random_oracle B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 3h20m43s] done random_oracle_B256_forced_D2: 52 tok/s, acc 14/20

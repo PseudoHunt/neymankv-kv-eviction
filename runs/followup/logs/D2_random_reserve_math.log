@@ -1,0 +1,24 @@
+[GPU clock 2h37m01s] start random_reserve B=256 sets=math n=20 seed=0 slots=32
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7261.88it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[2h39m44s] random_reserve B=256 math_141: n=758 ok=True pred='2'
+[2h39m44s] random_reserve B=256 math_98: n=760 ok=True pred='2k + 2'
+[2h39m56s] random_reserve B=256 math_384: n=818 ok=True pred='15x - 80'
+[2h40m35s] random_reserve B=256 math_187: n=1022 ok=True pred='7'
+[2h40m40s] random_reserve B=256 math_38: n=1047 ok=True pred='2000'
+[2h40m50s] random_reserve B=256 math_318: n=1104 ok=False pred='\\frac{9a + 11}{20}'
+[2h40m57s] random_reserve B=256 math_218: n=1142 ok=True pred='(-1, 6)'
+[2h40m57s] random_reserve B=256 math_370: n=1144 ok=True pred='-41'
+[2h41m27s] random_reserve B=256 math_262: n=1307 ok=True pred='4'
+[2h41m28s] random_reserve B=256 math_452: n=1311 ok=True pred='143'
+[2h42m00s] random_reserve B=256 math_30: n=1492 ok=True pred='52_8'
+[2h42m03s] random_reserve B=256 math_265: n=1511 ok=True pred='4005'
+[2h42m05s] random_reserve B=256 math_209: n=1525 ok=True pred='16'
+[2h43m01s] random_reserve B=256 math_97: n=1852 ok=True pred='east'
+[2h43m10s] random_reserve B=256 math_6: n=1903 ok=True pred='27'
+[2h43m14s] random_reserve B=256 math_14: n=1927 ok=True pred='\\sqrt{51}'
+[2h43m55s] random_reserve B=256 math_146: n=2171 ok=True pred='\\dfrac{\\sqrt{3}}{3}'
+[2h44m38s] random_reserve B=256 math_91: n=2439 ok=True pred='1'
+[2h46m07s] random_reserve B=256 math_16: n=3072 ok=False pred='None'
+[2h46m07s] random_reserve B=256 math_485: n=3072 ok=False pred='None'
+[GPU clock 2h46m07s] done random_reserve_B256_math_D2: 58 tok/s, acc 17/20

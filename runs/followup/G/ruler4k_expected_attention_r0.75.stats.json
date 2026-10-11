@@ -1,0 +1,1 @@
+{"method": "expected_attention", "ratio": 0.75, "dataset": "ruler4k", "n": 260, "n_contexts": 260, "wall_s": 1763.185778617859, "peak_mem_gb": 8.69747257232666}

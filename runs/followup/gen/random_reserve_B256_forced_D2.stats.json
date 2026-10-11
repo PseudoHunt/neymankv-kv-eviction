@@ -1,0 +1,62 @@
+{
+ "method": "random_reserve",
+ "budget": 256,
+ "n_problems": 20,
+ "gen_tokens": 26049,
+ "wall_s": 510.49432373046875,
+ "tok_per_s": 51.027012033445004,
+ "peak_mem_gb": 4.250491619110107,
+ "n_compress": 296,
+ "compress_s": 4.646697282791138,
+ "slots": 32,
+ "max_new": 3072,
+ "name": "random_reserve_B256_forced_D2",
+ "gpu_clock_end": "2h36m56s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "forced_498",
+ "seed": 0,
+ "sets": "forced"
+}

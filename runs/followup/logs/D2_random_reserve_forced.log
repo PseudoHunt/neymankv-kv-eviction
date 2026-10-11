@@ -1,0 +1,24 @@
+[GPU clock 2h28m17s] start random_reserve B=256 sets=forced n=20 seed=0 slots=32
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 8217.76it/s]
+[2h29m51s] random_reserve B=256 forced_194: n=450 ok=False pred='\\$10'
+[2h30m12s] random_reserve B=256 forced_743: n=556 ok=True pred='8'
+[2h30m15s] random_reserve B=256 forced_1178: n=560 ok=True pred='17'
+[2h30m22s] random_reserve B=256 forced_851: n=592 ok=True pred='110'
+[2h30m55s] random_reserve B=256 forced_761: n=760 ok=True pred='27'
+[2h31m02s] random_reserve B=256 forced_483: n=792 ok=True pred='40'
+[2h31m11s] random_reserve B=256 forced_498: n=832 ok=True pred='40'
+[2h31m13s] random_reserve B=256 forced_884: n=834 ok=False pred='None'
+[2h31m17s] random_reserve B=256 forced_262: n=847 ok=True pred='270'
+[2h31m32s] random_reserve B=256 forced_867: n=929 ok=True pred='7'
+[2h31m39s] random_reserve B=256 forced_797: n=960 ok=True pred='540'
+[2h32m05s] random_reserve B=256 forced_1035: n=1108 ok=False pred='40'
+[2h32m07s] random_reserve B=256 forced_1239: n=1112 ok=True pred='50\\%'
+[2h32m09s] random_reserve B=256 forced_913: n=1112 ok=False pred='18'
+[2h32m50s] random_reserve B=256 forced_290: n=1364 ok=True pred='390'
+[2h33m37s] random_reserve B=256 forced_107: n=1664 ok=True pred='3'
+[2h35m26s] random_reserve B=256 forced_259: n=2373 ok=True pred='168'
+[2h36m52s] random_reserve B=256 forced_1012: n=3072 ok=False pred='None'
+[2h36m54s] random_reserve B=256 forced_308: n=3072 ok=False pred='None'
+[2h36m56s] random_reserve B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 2h36m56s] done random_reserve_B256_forced_D2: 51 tok/s, acc 13/20

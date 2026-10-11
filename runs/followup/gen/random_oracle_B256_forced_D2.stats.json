@@ -1,0 +1,98 @@
+{
+ "method": "random_oracle",
+ "budget": 256,
+ "n_problems": 20,
+ "gen_tokens": 25673,
+ "wall_s": 496.35258054733276,
+ "tok_per_s": 51.72331323771932,
+ "peak_mem_gb": 4.250491619110107,
+ "n_compress": 290,
+ "compress_s": 3.6703362464904785,
+ "slots": 32,
+ "max_new": 3072,
+ "name": "random_oracle_B256_forced_D2",
+ "gpu_clock_end": "3h20m43s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 832,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 896,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 960,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1024,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1088,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1152,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "forced_498",
+ "seed": 0,
+ "sets": "forced"
+}

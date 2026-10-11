@@ -39,7 +39,7 @@ def load():
 
 
 def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, log_pid=None, policy_kw=None,
-             verbose=True):
+             verbose=True, on_step=None, on_recall=None):
     prompts = {p["pid"]: tok(data.prompt(tok, p), add_special_tokens=False)["input_ids"] for p in probs}
     cap_prompt = max(len(v) for v in prompts.values()) + 8
     e = Engine(model, tok, method, budget, n_slots=slots, max_new=max_new, cap_prompt=cap_prompt, seed=seed,
@@ -71,6 +71,8 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
             tk[s] = t_in
             lg = e.step(tk, positions, act)
             positions[s] += 1
+            if i == len(feed) - 1 and on_recall is not None:   # query that predicts the first code token
+                on_recall(e, s, st[s])
             if i >= len(feed) - 1:
                 out.append(int(lg[s].argmax()))
         mask = torch.ones(slots, dtype=torch.bool, device=dev)
@@ -115,6 +117,8 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
     while any(x is not None for x in st):
         active = torch.tensor([x is not None for x in st], device=dev)
         logits = e.step(tokens, positions, active)
+        if on_step is not None:
+            on_step(e, st, positions)
         nxt = sample(logits, gens)
         nl = nxt.tolist()
         for s in range(slots):
@@ -164,10 +168,14 @@ def main():
     ap.add_argument("--slots", type=int, default=8)
     ap.add_argument("--tag", default="")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--out", default="poc", help="results subdirectory of runs/")
+    ap.add_argument("--clock", default="poc", help="which clock (runs/<clock>/clock_start)")
     a = ap.parse_args()
+    clock.use(a.clock)
     clock.start()
-    print(f"[GPU clock {clock.fmt()}] start {a.method} B={a.budget} sets={a.sets} n={a.n}", flush=True)
-    if clock.elapsed() > clock.LIMIT_NEW_RUNS and not a.force:
+    print(f"[GPU clock {clock.fmt()}] start {a.method} B={a.budget} sets={a.sets} n={a.n} seed={a.seed} slots={a.slots}", flush=True)
+    if a.clock == "poc" and clock.elapsed() > clock.LIMIT_NEW_RUNS and not a.force:
         print("past 4h15m: not launching new runs", flush=True)
         return
     seed_all(0)
@@ -175,15 +183,16 @@ def main():
     sets = a.sets.split(",")
     probs = []
     for s in sets:
-        probs += [p for p in data.problems() if p["set"] == s][:a.n]
-    res, stats, kept = generate(model, tok, probs, a.method, a.budget, a.slots, a.max_new, log_pid=probs[0]["pid"])
-    name = f"{a.method}_B{a.budget}_{'-'.join(sets)}{a.tag}"
-    os.makedirs(os.path.join(OUT, "gen"), exist_ok=True)
-    with open(os.path.join(OUT, "gen", name + ".jsonl"), "w") as f:
+        probs += [p for p in data.problems() if p["set"] == s][:a.n if s in ("math", "gsm", "forced", "probe") else None]
+    res, stats, kept = generate(model, tok, probs, a.method, a.budget, a.slots, a.max_new, seed=a.seed, log_pid=probs[0]["pid"])
+    name = f"{a.method}_B{a.budget}_{'-'.join(sets)}{a.tag}" + (f"_s{a.seed}" if a.seed else "")
+    out = os.path.join(ROOT, "runs", a.out)
+    os.makedirs(os.path.join(out, "gen"), exist_ok=True)
+    with open(os.path.join(out, "gen", name + ".jsonl"), "w") as f:
         for r in res:
             f.write(json.dumps(r) + "\n")
-    stats.update(name=name, gpu_clock_end=clock.fmt(), kept_log=kept, kept_log_pid=probs[0]["pid"])
-    json.dump(stats, open(os.path.join(OUT, "gen", name + ".stats.json"), "w"), indent=1)
+    stats.update(name=name, gpu_clock_end=clock.fmt(), kept_log=kept, kept_log_pid=probs[0]["pid"], seed=a.seed, sets=a.sets)
+    json.dump(stats, open(os.path.join(out, "gen", name + ".stats.json"), "w"), indent=1)
     print(f"[GPU clock {clock.fmt()}] done {name}: {stats['tok_per_s']:.0f} tok/s, acc "
           f"{sum(r['correct'] for r in res)}/{len(res)}", flush=True)
 

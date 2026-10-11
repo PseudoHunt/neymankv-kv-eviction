@@ -1,0 +1,11 @@
+dataset,ratio,comparison,n,mean_a,mean_b,diff,lo,hi,wins,losses,ties
+ruler4k,0.75,v1_prop - random,260,0.1941,0.0618,0.1323,0.0958,0.1712,55,4,201
+ruler4k,0.75,v1_prop - v1_prop_noweight,260,0.1941,0.1728,0.0213,-0.0026,0.0463,27,13,220
+ruler4k,0.75,random_rw - random,260,0.1122,0.0618,0.0504,0.0195,0.0823,28,8,224
+ruler4k,0.75,v1_prop_noweight - random,260,0.1728,0.0618,0.111,0.0759,0.1483,46,6,208
+ruler4k,0.75,v1_prop_noweight - random_rw,260,0.1728,0.1122,0.0606,0.03,0.0923,34,8,218
+ruler4k,0.75,v1_prop - random_rw,260,0.1941,0.1122,0.0819,0.0487,0.1163,42,5,213
+ruler4k,0.75,v1_prop - expected_attention,260,0.1941,0.8597,-0.6656,-0.7201,-0.6099,3,191,66
+ruler4k,0.75,expected_attention - random,260,0.8597,0.0618,0.7979,0.7495,0.8435,220,1,39
+ruler4k,0.75,random - full,260,0.0618,0.9527,-0.8909,-0.924,-0.8546,0,241,19
+ruler4k,0.75,v1_prop - full,260,0.1941,0.9527,-0.7586,-0.8057,-0.7098,1,214,45

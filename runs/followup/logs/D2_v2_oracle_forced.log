@@ -1,0 +1,24 @@
+[GPU clock 3h28m44s] start v2_oracle B=256 sets=forced n=20 seed=0 slots=32
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 8089.74it/s]
+[3h30m40s] v2_oracle B=256 forced_194: n=462 ok=True pred='10'
+[3h30m47s] v2_oracle B=256 forced_1178: n=485 ok=True pred='17'
+[3h30m53s] v2_oracle B=256 forced_867: n=504 ok=True pred='7'
+[3h31m43s] v2_oracle B=256 forced_743: n=706 ok=True pred='8'
+[3h32m04s] v2_oracle B=256 forced_884: n=784 ok=True pred='50'
+[3h32m12s] v2_oracle B=256 forced_498: n=808 ok=True pred='40'
+[3h32m14s] v2_oracle B=256 forced_761: n=808 ok=True pred='27'
+[3h32m26s] v2_oracle B=256 forced_851: n=848 ok=True pred='110'
+[3h32m38s] v2_oracle B=256 forced_483: n=892 ok=True pred='40'
+[3h32m57s] v2_oracle B=256 forced_259: n=965 ok=False pred='166'
+[3h33m23s] v2_oracle B=256 forced_913: n=1072 ok=False pred='18'
+[3h34m10s] v2_oracle B=256 forced_1035: n=1276 ok=False pred='40'
+[3h34m36s] v2_oracle B=256 forced_262: n=1382 ok=True pred='270'
+[3h34m54s] v2_oracle B=256 forced_107: n=1447 ok=True pred='3'
+[3h36m12s] v2_oracle B=256 forced_1239: n=1777 ok=True pred='50'
+[3h39m26s] v2_oracle B=256 forced_290: n=2816 ok=True pred='390'
+[3h40m01s] v2_oracle B=256 forced_1012: n=3072 ok=False pred='None'
+[3h40m02s] v2_oracle B=256 forced_797: n=3072 ok=False pred='None'
+[3h40m04s] v2_oracle B=256 forced_308: n=3072 ok=False pred='None'
+[3h40m05s] v2_oracle B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 3h40m05s] done v2_oracle_B256_forced_D2: 44 tok/s, acc 13/20

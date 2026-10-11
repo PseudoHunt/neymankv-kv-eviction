@@ -1,0 +1,19 @@
+{
+ "method": "full",
+ "budget": 256,
+ "n_problems": 200,
+ "gen_tokens": 396451,
+ "wall_s": 6309.316410303116,
+ "tok_per_s": 62.83580886078171,
+ "peak_mem_gb": 8.501731395721436,
+ "n_compress": 0,
+ "compress_s": 0.0,
+ "slots": 32,
+ "max_new": 3072,
+ "name": "full_B256_math-math_x-gsm-gsm_x_A_s2",
+ "gpu_clock_end": "2h35m44s",
+ "kept_log": [],
+ "kept_log_pid": "math_14",
+ "seed": 2,
+ "sets": "math,math_x,gsm,gsm_x"
+}

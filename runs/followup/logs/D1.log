@@ -1,0 +1,5 @@
+[followup clock 1h57m47s] D1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7741.39it/s]
+fact token indices in the forced prefix: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] [' the', ' access', ' code', ' is', ' ', '7', '3', '9', '1', '-K', 'Q']
+[followup clock 2h26m40s] D1 done

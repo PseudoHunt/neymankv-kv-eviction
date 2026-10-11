@@ -1,0 +1,3 @@
+phase,method,budget,sets,seed,exit,wall_s,end_clock
+A,random,256,"math,math_x,gsm,gsm_x",1,0,3013,0h50m12s
+A,neymankv_v2,256,"math,math_x,gsm,gsm_x",1,0,4825,1h20m24s

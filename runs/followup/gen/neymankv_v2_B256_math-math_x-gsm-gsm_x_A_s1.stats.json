@@ -1,0 +1,104 @@
+{
+ "method": "neymankv_v2",
+ "budget": 256,
+ "n_problems": 200,
+ "gen_tokens": 389914,
+ "wall_s": 4794.59893655777,
+ "tok_per_s": 81.3235903898011,
+ "peak_mem_gb": 4.690954208374023,
+ "n_compress": 4964,
+ "compress_s": 364.18898820877075,
+ "slots": 32,
+ "max_new": 3072,
+ "name": "neymankv_v2_B256_math-math_x-gsm-gsm_x_A_s1",
+ "gpu_clock_end": "1h20m17s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 832,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 896,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 960,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1024,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1088,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1152,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1216,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "math_14",
+ "seed": 1,
+ "sets": "math,math_x,gsm,gsm_x"
+}

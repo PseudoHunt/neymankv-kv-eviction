@@ -1,0 +1,4 @@
+v1_prop - expected_attention {'n': 40, 'mean_a': np.float64(0.724), 'mean_b': np.float64(0.863), 'diff': np.float64(-0.139), 'lo': np.float64(-0.209), 'hi': np.float64(-0.078), 'wins': 2, 'losses': 19, 'ties': 19}
+v1_prop_noweight - expected_attention {'n': 40, 'mean_a': np.float64(0.672), 'mean_b': np.float64(0.863), 'diff': np.float64(-0.192), 'lo': np.float64(-0.268), 'hi': np.float64(-0.119), 'wins': 2, 'losses': 26, 'ties': 12}
+v1_prop - random {'n': 40, 'mean_a': np.float64(0.724), 'mean_b': np.float64(0.272), 'diff': np.float64(0.452), 'lo': np.float64(0.348), 'hi': np.float64(0.554), 'wins': 32, 'losses': 2, 'ties': 6}
+expected_attention - full {'n': 40, 'mean_a': np.float64(0.863), 'mean_b': np.float64(0.918), 'diff': np.float64(-0.054), 'lo': np.float64(-0.084), 'hi': np.float64(-0.027), 'wins': 2, 'losses': 16, 'ties': 22}

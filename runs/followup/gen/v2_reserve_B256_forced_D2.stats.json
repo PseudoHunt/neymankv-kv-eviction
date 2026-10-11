@@ -1,0 +1,68 @@
+{
+ "method": "v2_reserve",
+ "budget": 256,
+ "n_problems": 20,
+ "gen_tokens": 26048,
+ "wall_s": 807.4397873878479,
+ "tok_per_s": 32.25999066044046,
+ "peak_mem_gb": 4.431667327880859,
+ "n_compress": 295,
+ "compress_s": 20.80005669593811,
+ "slots": 32,
+ "max_new": 3072,
+ "name": "v2_reserve_B256_forced_D2",
+ "gpu_clock_end": "2h59m48s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 832,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "forced_498",
+ "seed": 0,
+ "sets": "forced"
+}

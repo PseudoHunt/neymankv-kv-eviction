@@ -1,0 +1,7 @@
+[followup clock 0h00m00s] launched A_full_B256_math-math_x-gsm-gsm_x_s1
+[followup clock 0h00m00s] launched A_random_B256_math-math_x-gsm-gsm_x_s1
+[followup clock 0h00m00s] launched A_neymankv_v2_B256_math-math_x-gsm-gsm_x_s1
+[followup clock 0h50m12s] finished A:random:256:math,math_x,gsm,gsm_x:1 exit=0 in 50.2 min
+[followup clock 0h50m12s] launched A_full_B256_math-math_x-gsm-gsm_x_s2
+[followup clock 1h20m24s] finished A:neymankv_v2:256:math,math_x,gsm,gsm_x:1 exit=0 in 80.4 min
+[followup clock 1h20m24s] launched A_random_B256_math-math_x-gsm-gsm_x_s2
