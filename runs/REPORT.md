@@ -5,11 +5,11 @@
 
 **Short answer.**
 - *With oracle spreads S_h* (from the held-out future queries): yes, by a wide margin. Neyman on
-  `pre_pos_norm` strata cuts median relative output error 39–64% vs proportional allocation at the same strata
-  and 39–64% vs uniform random. Value-aware S_h is modestly better than key-only on long docs (0.124 vs 0.145 at 10%).
+  `pre_pos_norm` strata cuts median relative output error 43–69% vs proportional allocation at the same strata
+  and 37–70% vs uniform random (both prompt types, both budgets). Value-aware S_h is modestly better than key-only on long docs (0.124 vs 0.145 at 10%).
 - *With the attention-free proxy S_h* (Gaussian model of the last 256 observed queries): **no on long documents**.
-  It is 37–90% *worse* than plain uniform random sampling (and worse than proportional). On reasoning traces it helps a little:
-  12–31% better than uniform random.
+  Every proxy configuration is *worse* than plain uniform random sampling (33–124% higher error) and worse than proportional.
+  On reasoning traces it is mixed to mildly positive: −7% to +31% vs uniform random.
 - **Gate E passes as literally specified, but only because the specified baseline (`random_pnorm`) is very weak on these
   keys.** Against uniform random or proportional-with-reweighting, the proxy fails on long documents. The oracle passes
   against every baseline. **The bottleneck is the S_h proxy, not Neyman allocation.**
