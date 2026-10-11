@@ -1,0 +1,31 @@
+torch.use_deterministic_algorithms(True, warn_only=True)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/398 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 398/398 [00:00<00:00, 5716.93it/s]
+299 GovReport test docs in [4000, 7600] tokens
+[transformers] The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+doc_00 len 7322 cut 6810
+doc_01 len 4651 cut 4139
+doc_02 len 5767 cut 5255
+doc_03 len 6116 cut 5604
+doc_04 len 7419 cut 6907
+doc_05 len 7227 cut 6715
+doc_06 len 6984 cut 6472
+doc_07 len 5080 cut 4568
+doc_08 len 6502 cut 5990
+doc_09 len 5157 cut 4645
+doc_10 len 7787 cut 7275
+doc_11 len 6914 cut 6402
+doc_12 len 7756 cut 7244
+doc_13 len 5975 cut 5463
+doc_14 len 6168 cut 5656
+doc_15 len 8076 cut 7564
+doc_16 len 6219 cut 5707
+doc_17 len 7048 cut 6536
+doc_18 len 6958 cut 6446
+doc_19 len 5732 cut 5220
+needle_00 len 7849 cut 7337 correct True
+needle_01 len 5338 cut 4826 correct True
+needle_02 len 4965 cut 4453 correct True
+needle_03 len 5444 cut 4932 correct True
+needle_04 len 7002 cut 6490 correct True
+done in 843s

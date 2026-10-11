@@ -28,17 +28,12 @@ def spreads(P: torch.Tensor, V: torch.Tensor, cand: torch.Tensor, labels: torch.
     out = {"key": _per_stratum_std(Pc, labels, H).mean(0), "val": _per_stratum_std(X, labels, H).mean(0)}
     if with_vec:
         Nh = torch.bincount(labels, minlength=H).double()
-        sq = torch.zeros(P.shape[0], H, device=P.device, dtype=torch.float64).index_add_(1, labels, (X ** 2).double())
-        # sum_{i in h} p_i (v_i - o) = A_h - (sum_{i in h} p_i) o with A_h = sum p_i v_i
-        onehot = torch.zeros(len(cand), H, device=P.device, dtype=torch.float32)
-        onehot[torch.arange(len(cand), device=P.device), labels] = 1.0
-        psum = Pc @ onehot                                       # [Q, H]
-        tr = sq.clone()
-        for h0 in range(0, H, 64):                               # chunk to bound memory
-            h1 = min(H, h0 + 64)
-            A = torch.einsum("qn,nh,nd->qhd", Pc, onehot[:, h0:h1], Vc)
-            m = A - psum[:, h0:h1, None] * o[:, None, :]
-            tr[:, h0:h1] -= (m.double() ** 2).sum(-1) / Nh[h0:h1]
+        tr = torch.zeros(P.shape[0], H, device=P.device, dtype=torch.float64).index_add_(1, labels, (X ** 2).double())
+        for q0 in range(0, P.shape[0], 128):                     # chunk queries to bound memory
+            q1 = min(P.shape[0], q0 + 128)
+            Xv = Pc[q0:q1, :, None] * (Vc[None] - o[q0:q1, None, :])          # [q, Nc, d]
+            S1 = torch.zeros(q1 - q0, H, Vc.shape[1], device=P.device).index_add_(1, labels, Xv)
+            tr[q0:q1] -= (S1.double() ** 2).sum(-1) / Nh
         out["valvec"] = (tr / (Nh - 1).clamp_min(1)).clamp_min(0).sqrt().mean(0)
     return {k: v.float() for k, v in out.items()}
 

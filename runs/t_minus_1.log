@@ -1,0 +1,21 @@
+doc_00 112s
+doc_01 179s
+doc_02 266s
+doc_03 359s
+doc_04 450s
+doc_05 566s
+doc_06 677s
+doc_07 757s
+doc_08 858s
+doc_09 939s
+doc_10 1064s
+doc_11 1172s
+doc_12 1299s
+doc_13 1400s
+Medians over pre / pre_pos_norm strata, all bits (the strata the Neyman methods use):
+
+| prompt_type   |   gain_key |   gain_val |
+|:--------------|-----------:|-----------:|
+| long_doc      |      0.576 |      0.426 |
+
+**Verdict: CONTINUE with key-only S_h (gain_key >= 0.15 and values add < 0.03).**

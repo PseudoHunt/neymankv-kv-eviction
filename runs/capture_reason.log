@@ -1,0 +1,50 @@
+torch.use_deterministic_algorithms(True, warn_only=True)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 6538.86it/s]
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+[transformers] The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+problem 1: trace 4096 tok at 16.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 7: trace 2662 tok at 16.5 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 9: trace 4096 tok at 16.5 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 11: trace 4096 tok at 16.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 12: trace 3572 tok at 19.2 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 15: trace 4096 tok at 20.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 17: trace 4096 tok at 20.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 22: trace 4096 tok at 20.5 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 23: trace 2490 tok at 20.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 24: trace 3049 tok at 20.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 25: trace 2624 tok at 20.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 26: trace 4096 tok at 20.5 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 31: trace 1579 tok at 20.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 32: trace 4096 tok at 20.6 tok/s, used=True
+[transformers] The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+[transformers] Setting `pad_token_id` to `eos_token_id`:151643 for open-end generation.
+problem 33: trace 2609 tok at 20.6 tok/s, used=True
+done in 2711s

@@ -24,6 +24,7 @@ class Head:
     q_obs: torch.Tensor   # [Mo, d] observed queries (post-RoPE), all grouped heads pooled
     group: int = 1
     q_win: torch.Tensor | None = None  # last 8 observed queries per grouped head, for rkvhash lam>0
+    q_obs_pos: torch.Tensor | None = None  # positions of q_obs rows (for the causal mask of source="observed")
     cache: dict = field(default_factory=dict)
 
     def __post_init__(self):
@@ -55,8 +56,14 @@ class Head:
             H = int(lab.max()) + 1
             if source == "oracle":
                 P = self.P
-            else:
+            elif source == "proxy":
                 P = St.proxy_weights(self.q_obs, self.k_post)
+            elif source == "observed":  # extra: empirical attention of the observed queries (causal)
+                Lo = E.logits(self.q_obs, self.k_post)
+                Lo = Lo.masked_fill(self.pos[None, :] > self.q_obs_pos[:, None], float("-inf"))
+                P = torch.softmax(Lo, dim=-1)
+            else:
+                raise ValueError(source)
             self.cache[key] = {k: v.cpu().numpy() for k, v in St.spreads(P, self.v, self.cand, lab, H).items()}
         return self.cache[key]
 
