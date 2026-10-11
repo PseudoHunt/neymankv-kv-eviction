@@ -34,7 +34,7 @@ def load_tokenizer(name):
 
 def load():
     tok = load_tokenizer(MODEL)
-    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16, attn_implementation="eager").cuda().eval()
+    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16, attn_implementation="sdpa").cuda().eval()
     return tok, model
 
 

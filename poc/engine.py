@@ -74,12 +74,9 @@ class Engine:
             h = layer.input_layernorm(x)
             q, k_pre, v = self._qkv(attn, h, 1, T)
             q, k = apply_rotary_pos_emb(q, k_pre, cos, sin)
-            # HF eager semantics: bf16 QK^T * scale, causal mask, fp32 softmax cast to bf16, bf16 PV
-            kr, vr = k.repeat_interleave(self.G, 1), v.repeat_interleave(self.G, 1)
-            sc = torch.matmul(q, kr.transpose(-1, -2)) * self.scale
-            mask = torch.full((T, T), NEG, device=self.dev).triu(1)
-            pr = torch.softmax(sc.float() + mask, dim=-1).to(self.dtype)
-            o = torch.matmul(pr, vr)
+            # SDPA computes QK^T in fp32 internally. HF "eager" rounds the scores to bf16 before the softmax, which on
+            # this model's large attention logits corrupts copying (e.g. "80 / 2 = 44"); see runs/poc/eager_bug.md.
+            o = F.scaled_dot_product_attention(q, k, v, is_causal=True, enable_gqa=True)
             x = x + attn.o_proj(o.transpose(1, 2).reshape(1, T, -1))
             x = x + layer.mlp(layer.post_attention_layernorm(x))
             self.K[l, s, :, :T] = k[0]
@@ -127,15 +124,15 @@ class Engine:
                 if self.trace is not None:
                     self.trace.append(x.detach().clone())
                 continue
-            qg = q.view(S, self.Hkv, self.G, self.d)
             if self.attn_fp32:
+                qg = q.view(S, self.Hkv, self.G, self.d)
                 sc = torch.matmul(qg.float(), Kl.float().transpose(-1, -2)) * self.scale + self.bias[l, :, :, None, :Lm]
-            else:
-                sc = (torch.matmul(qg, Kl.transpose(-1, -2)) * self.scale).float() + self.bias[l, :, :, None, :Lm]
-            if self.attn_fp32:
                 o = torch.matmul(torch.softmax(sc, dim=-1), Vl.float()).to(self.dtype)
             else:
-                o = torch.matmul(torch.softmax(sc, dim=-1).to(self.dtype), Vl)
+                # SDPA with the per-token logit bias as an additive float mask (per KV head, shared by its Q heads)
+                mask = self.bias[l, :, :, None, :Lm].repeat_interleave(self.G, dim=1).to(self.dtype)
+                o = F.scaled_dot_product_attention(q, Kl, Vl, attn_mask=mask, enable_gqa=True)   # [S, Hq, 1, d]
+                o = o.transpose(1, 2)
             o = o.reshape(S, 1, self.Hq * self.d)
             x = x + attn.o_proj(o)
             x = x + layer.mlp(layer.post_attention_layernorm(x))

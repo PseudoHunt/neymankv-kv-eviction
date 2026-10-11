@@ -2,7 +2,7 @@
  "engine_vs_hf": {
   "max_abs_logit_diff": 0.25,
   "argmax_agree": 1.0,
-  "max_prob_diff": 0.0288124680519104
+  "max_prob_diff": 0.030986309051513672
  },
  "check1_same_tokens_as_full": {
   "full": true,
@@ -93,23 +93,23 @@
  },
  "check3": {
   "bf16": {
-   "max_abs_logit_diff": 0.0,
-   "rel_diff": 0.0,
-   "passed": true,
-   "prob_max_diff": 0.0
+   "max_abs_logit_diff": 0.1875,
+   "rel_diff": 0.009803921915590763,
+   "passed": false,
+   "prob_max_diff": 0.006063193082809448
   },
   "fp32_attention": {
-   "max_abs_logit_diff": 0.0,
-   "rel_diff": 0.0,
-   "passed": true,
-   "prob_max_diff": 0.0
+   "max_abs_logit_diff": 0.1875,
+   "rel_diff": 0.009803921915590763,
+   "passed": false,
+   "prob_max_diff": 0.004032731056213379
   },
   "fp32_model": {
    "max_abs_logit_diff": 7.62939453125e-06,
-   "rel_diff": 3.9880362123767554e-07,
+   "rel_diff": 3.988036780810944e-07,
    "passed": true,
-   "prob_max_diff": 7.152557373046875e-07
+   "prob_max_diff": 4.470348358154297e-07
   }
  },
- "gpu_clock": "1h11m40s"
+ "gpu_clock": "2h16m48s"
 }

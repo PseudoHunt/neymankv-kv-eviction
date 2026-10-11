@@ -16,7 +16,7 @@ GEN = os.path.join(ROOT, "runs", "poc", "gen")
 LOGD = os.path.join(ROOT, "runs", "poc", "logs")
 LOG = os.path.join(ROOT, "runs", "poc", "schedule.log")
 ALL7 = ["full", "random", "simbin", "rkvhash_released", "rkvhash_fixed", "neymankv_v1", "neymankv_noweight"]
-S1_START = 1 * 3600 + 11 * 60 + 42  # GPU clock when S1 (valid tokenizer) was launched
+S1_START = None  # set at launch
 
 
 def log(msg):
@@ -69,8 +69,9 @@ def run_stage(name, jobs):
 
 def main():
     os.makedirs(LOGD, exist_ok=True)
+    t_s1 = clock.elapsed()
     toks = run_stage("S1 B=256", [(m, 256, "math,gsm", 40) for m in ALL7])
-    agg = toks / max(1.0, clock.elapsed() - S1_START)
+    agg = toks / max(1.0, clock.elapsed() - t_s1)
     n3 = 40 if agg >= 300 else 25
     log(f"S1 aggregate {agg:.0f} tok/s (4 concurrent processes x batch 8) -> S3 uses {n3} problems per dataset")
     run_stage("S2 probes B=256", [(m, 256, "forced", 20) for m in ALL7] + [(m, 256, "probe", 20) for m in ALL7])
