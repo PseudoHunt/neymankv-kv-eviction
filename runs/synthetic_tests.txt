@@ -1,0 +1,16 @@
+tests/test_synthetic.py::test_full_budget_identity[m0] PASSED
+tests/test_synthetic.py::test_full_budget_identity[m1] PASSED
+tests/test_synthetic.py::test_full_budget_identity[m2] PASSED
+tests/test_synthetic.py::test_full_budget_identity[m3] PASSED
+tests/test_synthetic.py::test_full_budget_identity[m4] PASSED
+tests/test_synthetic.py::test_full_budget_identity[m5] PASSED
+tests/test_synthetic.py::test_reweighting_identity PASSED
+tests/test_synthetic.py::test_webster PASSED
+tests/test_synthetic.py::test_reservoir PASSED
+tests/test_synthetic.py::test_inverse_rope_math PASSED
+tests/test_synthetic.py::test_inverse_rope_hooks[qwen3] PASSED
+tests/test_synthetic.py::test_inverse_rope_hooks[qwen2] PASSED
+neyman sanity: n0 prop=25 ney=117; err prop=8.3687 ney=2.2554
+PASSED
+tests/test_synthetic.py::test_systematic_selection_counts PASSED
+================================================================================= 14 passed in 55.21s =================================================================================
