@@ -1,0 +1,24 @@
+[GPU clock 3h43m54s] start full B=256 sets=forced n=20
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7318.70it/s]
+[3h45m25s] full B=256 forced_743: n=712 ok=True pred='8'
+[3h45m31s] full B=256 forced_498: n=756 ok=True pred='40'
+[3h46m03s] full B=256 forced_761: n=1000 ok=True pred='27'
+[3h46m19s] full B=256 forced_1239: n=1120 ok=True pred='50\\%'
+[3h46m24s] full B=256 forced_290: n=1148 ok=True pred='390'
+[3h46m50s] full B=256 forced_262: n=1342 ok=True pred='270'
+[3h47m17s] full B=256 forced_483: n=824 ok=True pred='40'
+[3h47m32s] full B=256 forced_913: n=1640 ok=False pred='18'
+[3h48m28s] full B=256 forced_107: n=1288 ok=True pred='3'
+[3h48m42s] full B=256 forced_867: n=784 ok=True pred='7'
+[3h48m57s] full B=256 forced_259: n=1103 ok=True pred='168'
+[3h49m09s] full B=256 forced_851: n=656 ok=True pred='110'
+[3h49m41s] full B=256 forced_194: n=464 ok=True pred='10'
+[3h49m48s] full B=256 forced_1178: n=320 ok=True pred='17'
+[3h49m58s] full B=256 forced_797: n=1600 ok=True pred='540'
+[3h50m04s] full B=256 forced_1035: n=1479 ok=False pred='40'
+[3h51m10s] full B=256 forced_1012: n=3072 ok=False pred='None'
+[3h51m52s] full B=256 forced_884: n=1044 ok=True pred='50'
+[3h55m00s] full B=256 forced_308: n=3072 ok=False pred='None'
+[3h56m23s] full B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 3h56m23s] done full_B256_forced: 36 tok/s, acc 15/20

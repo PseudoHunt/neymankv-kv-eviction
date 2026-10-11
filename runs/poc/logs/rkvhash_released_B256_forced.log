@@ -1,0 +1,24 @@
+[GPU clock 3h56m16s] start rkvhash_released B=256 sets=forced n=20
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7306.14it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[3h58m12s] rkvhash_released B=256 forced_761: n=943 ok=True pred='27'
+[3h58m18s] rkvhash_released B=256 forced_290: n=978 ok=True pred='390'
+[3h58m34s] rkvhash_released B=256 forced_1239: n=1100 ok=True pred='50\\%'
+[3h58m37s] rkvhash_released B=256 forced_262: n=1117 ok=True pred='270'
+[4h00m07s] rkvhash_released B=256 forced_483: n=928 ok=True pred='40'
+[4h00m18s] rkvhash_released B=256 forced_259: n=856 ok=True pred='168'
+[4h00m41s] rkvhash_released B=256 forced_743: n=2203 ok=True pred='8'
+[4h01m15s] rkvhash_released B=256 forced_797: n=1462 ok=False pred='9'
+[4h01m20s] rkvhash_released B=256 forced_867: n=640 ok=True pred='7'
+[4h01m46s] rkvhash_released B=256 forced_498: n=2868 ok=True pred='40'
+[4h02m13s] rkvhash_released B=256 forced_1012: n=3072 ok=False pred='None'
+[4h02m15s] rkvhash_released B=256 forced_913: n=3072 ok=False pred='None'
+[4h02m19s] rkvhash_released B=256 forced_194: n=480 ok=True pred='10'
+[4h03m02s] rkvhash_released B=256 forced_851: n=848 ok=True pred='110'
+[4h03m21s] rkvhash_released B=256 forced_884: n=478 ok=True pred='50'
+[4h04m07s] rkvhash_released B=256 forced_1178: n=822 ok=True pred='17'
+[4h04m28s] rkvhash_released B=256 forced_107: n=3072 ok=False pred='None'
+[4h04m50s] rkvhash_released B=256 forced_1035: n=2349 ok=False pred='8'
+[4h06m51s] rkvhash_released B=256 forced_308: n=3072 ok=False pred='None'
+[4h08m04s] rkvhash_released B=256 forced_62: n=3072 ok=False pred=''
+[GPU clock 4h08m04s] done rkvhash_released_B256_forced: 48 tok/s, acc 13/20

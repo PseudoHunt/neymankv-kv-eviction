@@ -1,0 +1,26 @@
+[GPU clock 3h38m52s] start neymankv_v2 B=256 sets=math n=40
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 10330.65it/s]
+[3h41m46s] neymankv_v2 B=256 math_262: n=1063 ok=True pred='4'
+[3h43m07s] neymankv_v2 B=256 math_38: n=1413 ok=True pred='2000'
+[3h45m40s] neymankv_v2 B=256 math_187: n=2315 ok=True pred='7'
+[3h47m10s] neymankv_v2 B=256 math_98: n=1658 ok=True pred='2k + 2'
+[3h48m33s] neymankv_v2 B=256 math_14: n=3072 ok=True pred='\\sqrt{51}'
+[3h48m33s] neymankv_v2 B=256 math_16: n=3072 ok=False pred='None'
+[3h48m33s] neymankv_v2 B=256 math_97: n=3072 ok=False pred='None'
+[3h48m33s] neymankv_v2 B=256 math_141: n=3072 ok=False pred='None'
+[3h48m33s] neymankv_v2 B=256 math_370: n=3072 ok=False pred='None'
+[3h48m44s] neymankv_v2 B=256 math_209: n=1700 ok=True pred='16'
+[3h49m15s] neymankv_v2 B=256 math_218: n=924 ok=True pred='(-1, 6)'
+[3h53m04s] neymankv_v2 B=256 math_384: n=970 ok=True pred='15x - 80'
+[3h55m07s] neymankv_v2 B=256 math_30: n=1332 ok=True pred='52_8'
+[3h55m32s] neymankv_v2 B=256 math_318: n=1453 ok=False pred='\\dfrac{9a + 11}{20}'
+[3h56m17s] neymankv_v2 B=256 math_452: n=1611 ok=True pred='143'
+[3h56m23s] neymankv_v2 B=256 math_91: n=1466 ok=True pred='1'
+[3h59m14s] neymankv_v2 B=256 math_393: n=1052 ok=True pred='\\dfrac{3}{4}'
+[3h59m29s] neymankv_v2 B=256 math_146: n=1612 ok=True pred='\\dfrac{\\sqrt{3}}{3}'
+[3h59m40s] neymankv_v2 B=256 math_492: n=1000 ok=True pred='y = -2x'
+[3h59m58s] neymankv_v2 B=256 math_265: n=3072 ok=False pred='None'
+[4h00m27s] neymankv_v2 B=256 math_420: n=1280 ok=False pred='\\begin{pmatrix} \\dfrac{16}{49}'
+[4h00m57s] neymankv_v2 B=256 math_485: n=3072 ok=False pred='None'
+[4h00m57s] neymankv_v2 B=256 math_6: n=3072 ok=False pred='None'

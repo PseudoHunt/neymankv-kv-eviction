@@ -1,0 +1,24 @@
+[GPU clock 3h56m36s] start rkvhash_fixed B=256 sets=forced n=20
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 5308.87it/s]
+[3h58m07s] rkvhash_fixed B=256 forced_743: n=692 ok=True pred='8'
+[3h58m17s] rkvhash_fixed B=256 forced_498: n=767 ok=True pred='40'
+[3h58m28s] rkvhash_fixed B=256 forced_262: n=845 ok=True pred='270'
+[3h58m30s] rkvhash_fixed B=256 forced_761: n=851 ok=True pred='27'
+[3h58m32s] rkvhash_fixed B=256 forced_913: n=858 ok=False pred='18'
+[3h58m49s] rkvhash_fixed B=256 forced_1239: n=995 ok=True pred='50\\%'
+[3h59m37s] rkvhash_fixed B=256 forced_483: n=696 ok=True pred='40'
+[4h00m12s] rkvhash_fixed B=256 forced_290: n=1686 ok=True pred='390'
+[4h00m15s] rkvhash_fixed B=256 forced_867: n=712 ok=True pred='7'
+[4h00m18s] rkvhash_fixed B=256 forced_259: n=868 ok=True pred='168'
+[4h00m52s] rkvhash_fixed B=256 forced_1035: n=1208 ok=True pred='35'
+[4h00m57s] rkvhash_fixed B=256 forced_308: n=715 ok=True pred='6'
+[4h01m06s] rkvhash_fixed B=256 forced_194: n=480 ok=True pred='10'
+[4h01m38s] rkvhash_fixed B=256 forced_1178: n=496 ok=True pred='17'
+[4h01m42s] rkvhash_fixed B=256 forced_884: n=478 ok=True pred='50'
+[4h02m29s] rkvhash_fixed B=256 forced_797: n=2118 ok=False pred='9'
+[4h02m34s] rkvhash_fixed B=256 forced_851: n=1304 ok=True pred='110'
+[4h02m45s] rkvhash_fixed B=256 forced_1012: n=3072 ok=False pred='None'
+[4h04m00s] rkvhash_fixed B=256 forced_107: n=2928 ok=True pred='3'
+[4h06m09s] rkvhash_fixed B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 4h06m09s] done rkvhash_fixed_B256_forced: 44 tok/s, acc 16/20

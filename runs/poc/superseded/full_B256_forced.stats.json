@@ -1,0 +1,17 @@
+{
+ "method": "full",
+ "budget": 256,
+ "n_problems": 20,
+ "gen_tokens": 26482,
+ "wall_s": 444.6502525806427,
+ "tok_per_s": 59.55692107741954,
+ "peak_mem_gb": 4.535246849060059,
+ "n_compress": 0,
+ "compress_s": 0.0,
+ "slots": 8,
+ "max_new": 3072,
+ "name": "full_B256_forced",
+ "gpu_clock_end": "3h36m19s",
+ "kept_log": [],
+ "kept_log_pid": "forced_498"
+}

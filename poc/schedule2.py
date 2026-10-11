@@ -57,7 +57,7 @@ def run_stage(name, jobs):
             tag = f"{m}_B{b}_{sets}"
             subprocess.Popen([sys.executable, "-m", "poc.run", "--method", m, "--budget", str(b), "--sets", sets,
                               "--n", str(n)], cwd=ROOT, stdout=open(os.path.join(LOGD, tag + ".log"), "w"),
-                             stderr=subprocess.STDOUT)
+                             stderr=subprocess.STDOUT, env={**os.environ, "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"})
             run.add((m, b, sets))
             log(f"launched {tag} n={n}")
         time.sleep(10)
@@ -69,14 +69,12 @@ def run_stage(name, jobs):
 
 def main():
     os.makedirs(LOGD, exist_ok=True)
-    t_s1 = clock.elapsed()
-    toks = run_stage("S1 B=256", [(m, 256, "math,gsm", 40) for m in ALL7])
-    agg = toks / max(1.0, clock.elapsed() - t_s1)
-    n3 = 40 if agg >= 300 else 25
-    log(f"S1 aggregate {agg:.0f} tok/s (4 concurrent processes x batch 8) -> S3 uses {n3} problems per dataset")
-    run_stage("S2 probes B=256", [(m, 256, "forced", 20) for m in ALL7] + [(m, 256, "probe", 20) for m in ALL7])
-    run_stage("S3 B=1024", [(m, 1024, "math,gsm", n3) for m in ALL7 if m != "full"])
-    run_stage("S4 nofloor probe", [("neymankv_nofloor", 256, "forced", 20)])
+    run_stage("S1 B=256", [(m, 256, "math,gsm", 40) for m in ALL7])
+    # S3 dropped (PI, ~3h40m). AgeKV brief (~3h48m): random_ht / random_ht_clip first, then the forced probe,
+    # then the original-probe control.
+    run_stage("P1 + S2", [("random_ht", 256, "math", 40), ("random_ht_clip", 256, "math", 40)]
+              + [(m, 256, "forced", 20) for m in ALL7] + [("neymankv_v2", 256, "forced", 20), ("random_ht", 256, "forced", 20)]
+              + [(m, 256, "probe", 20) for m in ALL7])
     log("all stages done")
 
 

@@ -1,0 +1,24 @@
+[GPU clock 3h43m54s] start simbin B=256 sets=forced n=20
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7071.16it/s]
+[3h45m35s] simbin B=256 forced_262: n=784 ok=True pred='270'
+[3h45m38s] simbin B=256 forced_743: n=795 ok=True pred='8'
+[3h45m44s] simbin B=256 forced_498: n=835 ok=True pred='40'
+[3h45m54s] simbin B=256 forced_1239: n=903 ok=True pred='50\\%'
+[3h46m32s] simbin B=256 forced_290: n=1189 ok=True pred='390'
+[3h46m45s] simbin B=256 forced_761: n=1283 ok=True pred='27'
+[3h47m04s] simbin B=256 forced_913: n=1415 ok=False pred='18'
+[3h47m19s] simbin B=256 forced_483: n=734 ok=True pred='40'
+[3h48m03s] simbin B=256 forced_259: n=925 ok=True pred='168'
+[3h48m20s] simbin B=256 forced_797: n=1102 ok=True pred='540'
+[3h48m27s] simbin B=256 forced_867: n=696 ok=True pred='7'
+[3h48m38s] simbin B=256 forced_308: n=630 ok=True pred='6'
+[3h48m53s] simbin B=256 forced_107: n=1344 ok=True pred='3'
+[3h49m09s] simbin B=256 forced_851: n=720 ok=True pred='110'
+[3h49m21s] simbin B=256 forced_194: n=480 ok=True pred='10'
+[3h49m55s] simbin B=256 forced_1178: n=560 ok=True pred='17'
+[3h49m58s] simbin B=256 forced_884: n=495 ok=True pred='50'
+[3h50m22s] simbin B=256 forced_1035: n=1510 ok=True pred='35'
+[3h51m17s] simbin B=256 forced_1012: n=3072 ok=False pred='None'
+[3h56m02s] simbin B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 3h56m02s] done simbin_B256_forced: 31 tok/s, acc 17/20

@@ -56,6 +56,7 @@ class Protected(Policy):
         if M <= e.budget:
             return None, None
         cand = torch.arange(c0, c1, device=e.dev)
+        self.n_gen = n_gen                                              # true generated count (cache is compacted)
         kept_c, bias_c = self.choose(s, cand, P)                       # [R, B] slot indices, [R, B] bias
         R = e.nL * e.Hkv
         head = torch.arange(P, device=e.dev).expand(R, P)
@@ -84,6 +85,39 @@ class Random(Protected):
         r = torch.rand(R, M, generator=e.gen_rng, device=e.dev)
         sel = torch.topk(r, e.budget, dim=-1, largest=False).indices.sort(-1).values
         return cand[sel], torch.zeros(R, e.budget, device=e.dev)
+
+
+class RandomHT(Random):
+    """random + Hajek correction: each survivor's bias accumulates log(M/B) per eviction round (M candidates, B kept),
+    i.e. -log of its exact inclusion probability; = floor(a/64) * log((B+64)/B) in steady state. Optional clip."""
+    meta_fields = {"logw": torch.float32}
+
+    def __init__(self, e, clip=None):
+        super().__init__(e)
+        self.clip = clip
+        self.max_bias = [0.0] * e.S
+
+    def on_prefill(self, l, s, k_pre, k_post):
+        if l == 0:
+            self.max_bias[s] = 0.0
+
+    def on_insert(self, l, ar, idx, k_pre, k_post):
+        self.e.meta["logw"][l, ar, :, idx] = 0.0
+
+    def choose(self, s, cand, P):
+        e = self.e
+        R, M = e.nL * e.Hkv, len(cand)
+        r = torch.rand(R, M, generator=e.gen_rng, device=e.dev)
+        sel = torch.topk(r, e.budget, dim=-1, largest=False).indices.sort(-1).values
+        logw = self._rows(e.meta["logw"], s, cand).gather(1, sel) + math.log(M / e.budget)
+        kept = cand[sel]
+        # persist the accumulated weight on the kept tokens; the compaction gather then carries it along
+        tmp = e.meta["logw"][:, s].reshape(R, -1).clone()
+        tmp.scatter_(1, kept, logw)
+        e.meta["logw"][:, s] = tmp.view(e.nL, e.Hkv, -1)
+        bias = logw if self.clip is None else logw.clamp(max=self.clip)
+        self.max_bias[s] = max(self.max_bias[s], float(bias.max()))
+        return kept, bias
 
 
 class SimBin(Protected):
@@ -156,6 +190,57 @@ class NeymanKV(Protected):
         Nseen = torch.maximum(self.seen[s], present)
         shares = AB.waterfill(Nseen.double(), present, Bv, floor=self.floor)
         n = AB.webster(shares, present, Bv, floor=self.floor)
+        mask = AB.select_bottom(lab, self._rows(e.meta["prio"], s, cand).double(), n)
+        bias = torch.log(Nseen.gather(1, lab).double() / n.gather(1, lab).clamp_min(1).double()).float()
+        if not self.weight:
+            bias = torch.zeros_like(bias)
+        return self._take(mask, cand.expand(R, -1), bias)
+
+
+class NeymanKV2(NeymanKV):
+    """v2: Random Attention's implicit recency decay made explicit. Position bins are the 64-token arrival chunks.
+    Chunk budget ∝ N_chunk * (B/(B+64))^(age/64) (Webster), then inside each chunk hash buckets get a proportional
+    share with a 1-slot floor (when feasible) and a uniform reservoir; bias log(N_h/n_h) per (chunk, bucket)."""
+
+    def __init__(self, e, weight=True, floor=1):
+        Protected.__init__(self, e)
+        self.weight, self.floor, self.one = weight, floor, False
+        self.CH = e.interval
+        self.nb = e.max_new // self.CH + 1
+        self.NB = 2 ** self.BITS
+        self.H = self.nb * self.NB
+        self.r = e.budget / (e.budget + e.interval)
+        self.proj = _proj((e.nL, e.Hkv, e.d, self.BITS), 2929, device=e.dev)
+        self.center = torch.zeros(e.nL, e.S, e.Hkv, e.d, device=e.dev)
+        self.seen = torch.zeros(e.S, e.nL * e.Hkv, self.H, dtype=torch.long, device=e.dev)
+
+    def choose(self, s, cand, P):
+        e = self.e
+        R, nb, NB = e.nL * e.Hkv, self.nb, self.NB
+        gpos = self._rows(e.pos, s, cand) - P
+        chunk = gpos // self.CH
+        lab = chunk * NB + self._rows(e.meta["code"], s, cand)
+        new = ~self._rows(e.meta["seen"], s, cand)
+        self.seen[s].scatter_add_(1, lab, new.long())
+        e.meta["seen"][:, s][:, :, cand] = True
+        present = torch.zeros(R, self.H, dtype=torch.long, device=e.dev).scatter_add_(1, lab, torch.ones_like(lab))
+        Nseen = torch.maximum(self.seen[s], present)
+        # level 1: chunk budgets with the explicit recency prior
+        n_gen = self.n_gen
+        c_present = present.view(R, nb, NB).sum(-1)
+        c_seen = Nseen.view(R, nb, NB).sum(-1)
+        age = (n_gen - (torch.arange(nb, device=e.dev) * self.CH + self.CH / 2)).clamp_min(0)
+        prior = c_seen.double() * self.r ** (age / self.CH)
+        Bv = torch.full((R,), e.budget, device=e.dev)
+        nc = AB.webster(AB.waterfill(prior + 1e-300 * (c_present > 0), c_present, Bv, floor=0), c_present, Bv, floor=0)
+        # level 2: hash buckets inside each chunk, proportional on seen counts, 1-slot floor, Webster
+        pr, sr = present.view(R * nb, NB), Nseen.view(R * nb, NB)
+        rows = (nc.view(-1) > 0).nonzero()[:, 0]
+        n = torch.zeros(R * nb, NB, dtype=torch.long, device=e.dev)
+        if len(rows):
+            sh = AB.waterfill(sr[rows].double(), pr[rows], nc.view(-1)[rows], floor=self.floor)
+            n[rows] = AB.webster(sh, pr[rows], nc.view(-1)[rows], floor=self.floor)
+        n = n.view(R, self.H)
         mask = AB.select_bottom(lab, self._rows(e.meta["prio"], s, cand).double(), n)
         bias = torch.log(Nseen.gather(1, lab).double() / n.gather(1, lab).clamp_min(1).double()).float()
         if not self.weight:
@@ -262,6 +347,10 @@ POLICIES = {
     "neymankv_v1": NeymanKV,
     "neymankv_noweight": lambda e: NeymanKV(e, weight=False),
     "neymankv_nofloor": lambda e: NeymanKV(e, floor=0),
+    "neymankv_v2": NeymanKV2,
+    "random_ht": RandomHT,
+    "random_ht_clip": lambda e: RandomHT(e, clip=math.log(50)),
+    "neymankv_v2_noweight": lambda e: NeymanKV2(e, weight=False),
     "neymankv_onestratum": lambda e: NeymanKV(e, floor=0, one_stratum=True),
 }
 for _k, _v in list(POLICIES.items()):

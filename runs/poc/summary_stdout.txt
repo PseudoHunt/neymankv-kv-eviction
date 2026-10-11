@@ -1,0 +1,64 @@
+               method  budget     set   n    acc  len_mean  len_p95  loop_rate  cap_rate  passcode  passcode_any passcode_recall  max_bias_mean  max_bias_max
+0                full     256  forced  20  0.750  1324.800   3072.0        0.0     0.150      0.05           0.1             1.0            NaN           NaN
+1                full     256     gsm  40  0.650  1521.975   3072.0        0.0     0.150      0.00           0.0             NaN            NaN           NaN
+2                full     256    math  40  0.675  2130.650   3072.0        0.0     0.250      0.00           0.0             NaN            NaN           NaN
+3   neymankv_noweight     256  forced  20  0.750  1390.250   3072.0        0.0     0.200      0.00           0.0            0.25            NaN           NaN
+4   neymankv_noweight     256     gsm  40  0.550  1825.850   3072.0        0.0     0.300      0.00           0.0             NaN            NaN           NaN
+5   neymankv_noweight     256    math  40  0.325  2516.175   3072.0        0.0     0.625      0.00           0.0             NaN            NaN           NaN
+6         neymankv_v1     256  forced  20  0.750  1460.000   3072.0        0.0     0.200      0.00           0.0             0.2            NaN           NaN
+7         neymankv_v1     256     gsm  40  0.625  1713.925   3072.0        0.0     0.250      0.00           0.0             NaN            NaN           NaN
+8         neymankv_v1     256    math  40  0.400  2511.975   3072.0        0.0     0.575      0.00           0.0             NaN            NaN           NaN
+9         neymankv_v2     256  forced  20  0.750  1278.750   3072.0        0.0     0.150      0.00           0.0             0.0            NaN           NaN
+10        neymankv_v2     256    math  40  0.675  1953.225   3072.0        0.0     0.250      0.00           0.0             NaN            NaN           NaN
+11             random     256  forced  20  0.700  1480.950   3072.0        0.0     0.200      0.00           0.0            0.05            NaN           NaN
+12             random     256     gsm  40  0.750  1526.600   3072.0        0.0     0.150      0.00           0.0             NaN            NaN           NaN
+13             random     256    math  40  0.625  1985.175   3072.0        0.0     0.300      0.00           0.0             NaN            NaN           NaN
+14          random_ht     256    math  40  0.575  2227.275   3072.0        0.0     0.375      0.00           0.0             NaN          6.466         9.372
+15     random_ht_clip     256    math  40  0.575  2277.550   3072.0        0.0     0.400      0.00           0.0             NaN          3.724         3.912
+16      rkvhash_fixed     256  forced  20  0.800  1242.050   3072.0        0.0     0.100      0.00           0.0             0.0            NaN           NaN
+17      rkvhash_fixed     256     gsm  40  0.725  1683.450   3072.0        0.0     0.075      0.00           0.0             NaN            NaN           NaN
+18      rkvhash_fixed     256    math  40  0.575  2239.275   3072.0        0.0     0.375      0.00           0.0             NaN            NaN           NaN
+19   rkvhash_released     256  forced  20  0.650  1671.600   3072.0        0.0     0.250      0.00           0.0             0.0            NaN           NaN
+20   rkvhash_released     256     gsm  40  0.675  1517.950   3072.0        0.0     0.150      0.00           0.0             NaN            NaN           NaN
+21   rkvhash_released     256    math  40  0.425  2367.850   3072.0        0.0     0.525      0.00           0.0             NaN            NaN           NaN
+22             simbin     256  forced  20  0.850  1127.200   3072.0        0.0     0.100      0.00           0.0             0.0            NaN           NaN
+23             simbin     256     gsm  40  0.700  1524.875   3072.0        0.0     0.175      0.00           0.0             NaN            NaN           NaN
+24             simbin     256    math  40  0.600  2046.225   3072.0        0.0     0.325      0.00           0.0             NaN            NaN           NaN
+               method  budget       set  tok_s  peak_mem_gb gpu_clock_end
+0                full     256    forced   35.8          4.5      3h56m23s
+1                full     256  math,gsm   57.1          4.6      2h59m59s
+2   neymankv_noweight     256    forced   26.3          3.6      4h19m03s
+3   neymankv_noweight     256  math,gsm   73.7          3.6      3h39m31s
+4         neymankv_v1     256    forced   25.7          3.6      4h16m29s
+5         neymankv_v1     256  math,gsm   71.8          3.6      3h37m38s
+6         neymankv_v2     256    forced   28.6          3.6      4h23m14s
+7         neymankv_v2     256      math   45.4          3.6      4h30m19s
+8              random     256    forced   37.2          3.5      3h57m20s
+9              random     256  math,gsm   58.6          3.6      2h57m17s
+10          random_ht     256      math   50.4          3.6      4h31m06s
+11     random_ht_clip     256      math   59.6          3.6      4h31m56s
+12      rkvhash_fixed     256    forced   44.0          3.6      4h06m09s
+13      rkvhash_fixed     256  math,gsm  105.0          3.6      3h22m30s
+14   rkvhash_released     256    forced   47.8          3.5      4h08m04s
+15   rkvhash_released     256  math,gsm   59.6          3.6      3h00m51s
+16             simbin     256    forced   31.4          3.6      3h56m02s
+17             simbin     256  math,gsm   58.4          3.6      2h58m07s
+               method  budget       set         pid  n_compressions cache_len  gen_kept_min  gen_kept_max
+0                full     256    forced  forced_498               0        []           NaN           NaN
+1                full     256  math-gsm     math_14               0        []           NaN           NaN
+2   neymankv_noweight     256    forced  forced_498               6     [403]         320.0         320.0
+3   neymankv_noweight     256  math-gsm     math_14              42     [453]         320.0         320.0
+4         neymankv_v1     256    forced  forced_498               6     [403]         320.0         320.0
+5         neymankv_v1     256  math-gsm     math_14              42     [453]         320.0         320.0
+6         neymankv_v2     256    forced  forced_498              30     [403]         320.0         320.0
+7         neymankv_v2     256      math     math_14              35     [453]         320.0         320.0
+8              random     256    forced  forced_498              21     [403]         320.0         320.0
+9              random     256  math-gsm     math_14              42     [453]         320.0         320.0
+10          random_ht     256      math     math_14              31     [453]         320.0         320.0
+11     random_ht_clip     256      math     math_14              42     [453]         320.0         320.0
+12      rkvhash_fixed     256    forced  forced_498               6     [403]         320.0         320.0
+13      rkvhash_fixed     256  math-gsm     math_14              23     [453]         320.0         320.0
+14   rkvhash_released     256    forced  forced_498              39     [403]         320.0         403.0
+15   rkvhash_released     256  math-gsm     math_14              42     [453]         323.0         453.0
+16             simbin     256    forced  forced_498               8     [403]         320.0         320.0
+17             simbin     256  math-gsm     math_14              42     [453]         320.0         320.0

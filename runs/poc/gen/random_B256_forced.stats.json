@@ -1,0 +1,144 @@
+{
+ "method": "random",
+ "budget": 256,
+ "n_problems": 20,
+ "gen_tokens": 29607,
+ "wall_s": 796.8841354846954,
+ "tok_per_s": 37.15345642060234,
+ "peak_mem_gb": 3.54966402053833,
+ "n_compress": 351,
+ "compress_s": 2.1103012561798096,
+ "slots": 8,
+ "max_new": 3072,
+ "name": "random_B256_forced",
+ "gpu_clock_end": "3h57m20s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 832,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 896,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 960,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1024,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1088,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1152,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1216,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1280,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1344,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1408,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1472,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1536,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1600,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1664,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "forced_498"
+}

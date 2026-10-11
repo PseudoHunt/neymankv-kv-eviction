@@ -54,8 +54,33 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
     n_tok, t0 = 0, time.time()
     torch.cuda.reset_peak_memory_stats()
 
-    def finish(s):
+    recall_ids = tok("\n\nThe access code is", add_special_tokens=False)["input_ids"]
+
+    def recall(s, pending):
+        """Teacher-force a recall cue on slot s's (evicted) cache and greedily decode 8 tokens. Other slots are
+        stepped as inactive (their writes land beyond their length and are overwritten later); their window
+        queries are restored afterwards."""
+        q_saved = e.qwin.clone()
+        act = torch.zeros(slots, dtype=torch.bool, device=dev)
+        act[s] = True
+        feed = ([tokens[s].item()] if pending else []) + recall_ids
+        out = []
+        for i in range(len(feed) + 8):
+            t_in = feed[i] if i < len(feed) else out[-1]
+            tk = tokens.clone()
+            tk[s] = t_in
+            lg = e.step(tk, positions, act)
+            positions[s] += 1
+            if i >= len(feed) - 1:
+                out.append(int(lg[s].argmax()))
+        mask = torch.ones(slots, dtype=torch.bool, device=dev)
+        mask[s] = False
+        e.qwin[:, mask] = q_saved[:, mask]
+        return tok.decode(out[:8], skip_special_tokens=True)
+
+    def finish(s, pending=False):
         x = st[s]
+        recalled = recall(s, pending) if x["p"].get("forced_prefix") else None
         text = tok.decode(x["gen"], skip_special_tokens=True)
         ans = grade.answer_part(text)
         pred = grade.last_boxed(ans)
@@ -63,7 +88,9 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
         results.append(dict(pid=p["pid"], set=p["set"], gold=p["gold"], pred=pred, correct=grade.correct(pred, p["gold"]),
                             n_gen=len(x["gen"]), hit_cap=len(x["gen"]) >= max_new, think_closed=THINK_END in x["gen"],
                             loop=grade.has_loop(x["gen"]), passcode_answer=data.CODE in ans and "</think>" in text,
-                            passcode_any=data.CODE in text[len(x["p"].get("forced_prefix", "")):], prompt_len=x["P"], text=text))
+                            passcode_any=data.CODE in text[len(x["p"].get("forced_prefix", "")):],
+                            max_bias=getattr(e.policy, "max_bias", [None] * slots)[s],
+                            recall_text=recalled, passcode_recall=(data.CODE in recalled) if recalled is not None else None, prompt_len=x["P"], text=text))
         if verbose:
             r = results[-1]
             print(f"[{clock.fmt()}] {method} B={budget} {r['pid']}: n={r['n_gen']} ok={r['correct']} pred={str(r['pred'])[:30]!r}", flush=True)
@@ -117,7 +144,7 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
                         stop = True
                 stop = stop or len(x["gen"]) >= max_new
             if stop:
-                finish(s)
+                finish(s, pending=(t != tok.eos_token_id))
                 if queue:
                     refill(s)
     wall = time.time() - t0

@@ -1,0 +1,66 @@
+{
+ "method": "simbin",
+ "budget": 256,
+ "n_problems": 20,
+ "gen_tokens": 22536,
+ "wall_s": 718.7838325500488,
+ "tok_per_s": 31.35295895575228,
+ "peak_mem_gb": 3.5518202781677246,
+ "n_compress": 242,
+ "compress_s": 7.170316457748413,
+ "slots": 8,
+ "max_new": 3072,
+ "name": "simbin_B256_forced",
+ "gpu_clock_end": "3h56m02s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 832,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "forced_498"
+}

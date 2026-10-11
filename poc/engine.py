@@ -35,9 +35,9 @@ class Engine:
         self.policy = POLICIES[method](self, **(policy_kw or {}))
         self.method = method
         if self.policy.evicts:
-            cap = cap_prompt + budget + interval + recent + 8
+            cap = cap_prompt + budget + interval + recent + 40
         else:
-            cap = cap_prompt + max_new + 8
+            cap = cap_prompt + max_new + 40
         self.cap = cap
         z = dict(device=self.dev)
         self.K = torch.zeros(self.nL, self.S, self.Hkv, cap, self.d, dtype=self.dtype, **z)

@@ -1,0 +1,10 @@
+[GPU clock 3h43m50s] stage S1 B=256: 7 jobs
+[GPU clock 3h43m50s] stage S1 B=256 done: 1084175 generated tokens; missing: []
+[GPU clock 3h43m50s] stage S2 probes B=256: 15 jobs
+[GPU clock 3h43m50s] launched full_B256_forced n=20
+[GPU clock 3h43m50s] launched random_B256_forced n=20
+[GPU clock 3h43m50s] launched simbin_B256_forced n=20
+[GPU clock 3h56m11s] launched rkvhash_released_B256_forced n=20
+[GPU clock 3h56m31s] launched rkvhash_fixed_B256_forced n=20
+[GPU clock 3h57m21s] launched neymankv_v1_B256_forced n=20
+[GPU clock 4h01m11s] launched neymankv_noweight_B256_forced n=20

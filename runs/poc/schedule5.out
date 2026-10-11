@@ -1,0 +1,9 @@
+[GPU clock 4h01m25s] stage S1 B=256: 7 jobs
+[GPU clock 4h01m25s] stage S1 B=256 done: 1084175 generated tokens; missing: []
+[GPU clock 4h01m25s] stage P1 + S2: 18 jobs
+[GPU clock 4h01m25s] launched random_ht_B256_math n=40
+[GPU clock 4h06m16s] launched random_ht_clip_B256_math n=40
+[GPU clock 4h08m06s] launched neymankv_v2_B256_forced n=20
+[GPU clock 4h16m37s] past 4h15m: skipping [('random_ht', 256, 'forced', 20), ('full', 256, 'probe', 20), ('random', 256, 'probe', 20), ('simbin', 256, 'probe', 20), ('rkvhash_released', 256, 'probe', 20), ('rkvhash_fixed', 256, 'probe', 20), ('neymankv_v1', 256, 'probe', 20), ('neymankv_noweight', 256, 'probe', 20)]
+[GPU clock 4h31m58s] stage P1 + S2 done: 399572 generated tokens; missing: [('random_ht', 256, 'forced', 20), ('full', 256, 'probe', 20), ('random', 256, 'probe', 20), ('simbin', 256, 'probe', 20), ('rkvhash_released', 256, 'probe', 20), ('rkvhash_fixed', 256, 'probe', 20), ('neymankv_v1', 256, 'probe', 20), ('neymankv_noweight', 256, 'probe', 20)]
+[GPU clock 4h31m58s] all stages done

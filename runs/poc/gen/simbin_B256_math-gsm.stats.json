@@ -1,0 +1,270 @@
+{
+ "method": "simbin",
+ "budget": 256,
+ "n_problems": 80,
+ "gen_tokens": 142800,
+ "wall_s": 2444.439032316208,
+ "tok_per_s": 58.41831115938737,
+ "peak_mem_gb": 3.5620832443237305,
+ "n_compress": 1777,
+ "compress_s": 50.21455979347229,
+ "slots": 8,
+ "max_new": 3072,
+ "name": "simbin_B256_math-gsm",
+ "gpu_clock_end": "2h58m07s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 832,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 896,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 960,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1024,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1088,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1152,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1216,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1280,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1344,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1408,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1472,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1536,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1600,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1664,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1728,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1792,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1856,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1920,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1984,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2048,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2112,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2176,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2240,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2304,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2368,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2432,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2496,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2560,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2624,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2688,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2752,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2816,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2880,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 2944,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 3008,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "math_14"
+}

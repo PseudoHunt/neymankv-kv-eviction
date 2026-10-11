@@ -1,0 +1,54 @@
+{
+ "method": "neymankv_v1",
+ "budget": 256,
+ "n_problems": 20,
+ "gen_tokens": 29186,
+ "wall_s": 1133.7103600502014,
+ "tok_per_s": 25.743788738693034,
+ "peak_mem_gb": 3.556666374206543,
+ "n_compress": 345,
+ "compress_s": 13.650306940078735,
+ "slots": 8,
+ "max_new": 3072,
+ "name": "neymankv_v1_B256_forced",
+ "gpu_clock_end": "4h16m29s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 403,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "forced_498"
+}

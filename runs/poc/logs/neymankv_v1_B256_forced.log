@@ -1,0 +1,24 @@
+[GPU clock 3h57m26s] start neymankv_v1 B=256 sets=forced n=20
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 5918.29it/s]
+[3h59m59s] neymankv_v1 B=256 forced_743: n=704 ok=True pred='8'
+[4h00m06s] neymankv_v1 B=256 forced_498: n=726 ok=True pred='40'
+[4h00m48s] neymankv_v1 B=256 forced_761: n=968 ok=True pred='27'
+[4h01m02s] neymankv_v1 B=256 forced_262: n=1040 ok=True pred='270'
+[4h01m30s] neymankv_v1 B=256 forced_290: n=1232 ok=True pred='390'
+[4h02m25s] neymankv_v1 B=256 forced_483: n=776 ok=True pred='40'
+[4h04m10s] neymankv_v1 B=256 forced_1239: n=1917 ok=True pred='50'
+[4h04m20s] neymankv_v1 B=256 forced_259: n=909 ok=True pred='168'
+[4h05m30s] neymankv_v1 B=256 forced_107: n=1504 ok=True pred='3'
+[4h06m26s] neymankv_v1 B=256 forced_867: n=991 ok=True pred='7'
+[4h07m20s] neymankv_v1 B=256 forced_194: n=480 ok=True pred='10'
+[4h07m24s] neymankv_v1 B=256 forced_851: n=768 ok=True pred='110'
+[4h08m04s] neymankv_v1 B=256 forced_308: n=971 ok=True pred='6'
+[4h08m39s] neymankv_v1 B=256 forced_1012: n=3072 ok=False pred='None'
+[4h08m41s] neymankv_v1 B=256 forced_913: n=3072 ok=False pred='None'
+[4h09m06s] neymankv_v1 B=256 forced_884: n=478 ok=True pred='50'
+[4h09m09s] neymankv_v1 B=256 forced_1178: n=488 ok=True pred='17'
+[4h11m27s] neymankv_v1 B=256 forced_797: n=2960 ok=False pred='None'
+[4h12m39s] neymankv_v1 B=256 forced_1035: n=3072 ok=False pred='None'
+[4h16m29s] neymankv_v1 B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 4h16m29s] done neymankv_v1_B256_forced: 26 tok/s, acc 15/20

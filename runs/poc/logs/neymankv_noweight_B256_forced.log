@@ -1,0 +1,24 @@
+[GPU clock 4h01m16s] start neymankv_noweight B=256 sets=forced n=20
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 6198.02it/s]
+[4h03m58s] neymankv_noweight B=256 forced_743: n=679 ok=True pred='8'
+[4h04m16s] neymankv_noweight B=256 forced_498: n=742 ok=True pred='40'
+[4h04m35s] neymankv_noweight B=256 forced_761: n=812 ok=True pred='27'
+[4h05m09s] neymankv_noweight B=256 forced_1239: n=944 ok=True pred='50\\%'
+[4h06m27s] neymankv_noweight B=256 forced_290: n=1274 ok=True pred='390'
+[4h06m52s] neymankv_noweight B=256 forced_483: n=704 ok=True pred='40'
+[4h07m10s] neymankv_noweight B=256 forced_262: n=1455 ok=True pred='270'
+[4h07m46s] neymankv_noweight B=256 forced_913: n=1608 ok=False pred='18'
+[4h09m04s] neymankv_noweight B=256 forced_867: n=614 ok=True pred='7'
+[4h09m23s] neymankv_noweight B=256 forced_797: n=1271 ok=True pred='540'
+[4h09m47s] neymankv_noweight B=256 forced_107: n=1448 ok=True pred='3'
+[4h09m58s] neymankv_noweight B=256 forced_851: n=625 ok=True pred='110'
+[4h10m49s] neymankv_noweight B=256 forced_194: n=480 ok=True pred='10'
+[4h11m31s] neymankv_noweight B=256 forced_1178: n=488 ok=True pred='17'
+[4h11m44s] neymankv_noweight B=256 forced_884: n=496 ok=True pred='50'
+[4h12m04s] neymankv_noweight B=256 forced_259: n=1877 ok=True pred='168'
+[4h12m55s] neymankv_noweight B=256 forced_1012: n=3072 ok=False pred='None'
+[4h16m54s] neymankv_noweight B=256 forced_1035: n=3072 ok=False pred='None'
+[4h17m24s] neymankv_noweight B=256 forced_308: n=3072 ok=False pred='None'
+[4h19m03s] neymankv_noweight B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 4h19m03s] done neymankv_noweight_B256_forced: 26 tok/s, acc 15/20

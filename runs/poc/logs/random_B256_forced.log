@@ -1,0 +1,24 @@
+[GPU clock 3h43m54s] start random B=256 sets=forced n=20
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 7078.80it/s]
+[3h45m15s] random B=256 forced_743: n=627 ok=True pred='8'
+[3h45m40s] random B=256 forced_761: n=823 ok=True pred='27'
+[3h45m44s] random B=256 forced_913: n=848 ok=False pred='18'
+[3h46m05s] random B=256 forced_290: n=1001 ok=True pred='390'
+[3h46m44s] random B=256 forced_483: n=678 ok=True pred='40'
+[3h47m38s] random B=256 forced_498: n=1704 ok=True pred='40'
+[3h47m46s] random B=256 forced_797: n=900 ok=True pred='540'
+[3h48m24s] random B=256 forced_1239: n=2021 ok=True pred='50'
+[3h49m39s] random B=256 forced_308: n=776 ok=True pred='6'
+[3h49m54s] random B=256 forced_867: n=912 ok=True pred='7'
+[3h50m34s] random B=256 forced_1035: n=1549 ok=False pred='40'
+[3h50m36s] random B=256 forced_262: n=2856 ok=True pred='270'
+[3h51m02s] random B=256 forced_194: n=480 ok=True pred='10'
+[3h51m15s] random B=256 forced_1012: n=3072 ok=False pred='None'
+[3h51m37s] random B=256 forced_851: n=1172 ok=True pred='110'
+[3h52m02s] random B=256 forced_1178: n=488 ok=True pred='17'
+[3h52m06s] random B=256 forced_884: n=496 ok=True pred='50'
+[3h53m31s] random B=256 forced_107: n=3072 ok=False pred='None'
+[3h53m59s] random B=256 forced_259: n=3072 ok=False pred='None'
+[3h57m20s] random B=256 forced_62: n=3072 ok=False pred='None'
+[GPU clock 3h57m20s] done random_B256_forced: 37 tok/s, acc 14/20

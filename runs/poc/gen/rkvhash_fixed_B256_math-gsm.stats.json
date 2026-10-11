@@ -1,0 +1,156 @@
+{
+ "method": "rkvhash_fixed",
+ "budget": 256,
+ "n_problems": 80,
+ "gen_tokens": 156873,
+ "wall_s": 1494.2118899822235,
+ "tok_per_s": 104.98711799292823,
+ "peak_mem_gb": 3.5931477546691895,
+ "n_compress": 2005,
+ "compress_s": 8.963288307189941,
+ "slots": 8,
+ "max_new": 3072,
+ "name": "rkvhash_fixed_B256_math-gsm",
+ "gpu_clock_end": "3h22m30s",
+ "kept_log": [
+  {
+   "n_gen": 384,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 448,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 512,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 576,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 640,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 704,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 768,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 832,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 896,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 960,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1024,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1088,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1152,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1216,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1280,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1344,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1408,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1472,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1536,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1600,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1664,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1728,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  },
+  {
+   "n_gen": 1792,
+   "cache_len": 453,
+   "gen_kept_min": 320,
+   "gen_kept_max": 320
+  }
+ ],
+ "kept_log_pid": "math_14"
+}

@@ -1,0 +1,17 @@
+{
+ "method": "full",
+ "budget": 256,
+ "n_problems": 80,
+ "gen_tokens": 146075,
+ "wall_s": 2556.256998538971,
+ "tok_per_s": 57.144097828774335,
+ "peak_mem_gb": 4.558716773986816,
+ "n_compress": 0,
+ "compress_s": 0.0,
+ "slots": 8,
+ "max_new": 3072,
+ "name": "full_B256_math-gsm",
+ "gpu_clock_end": "2h59m59s",
+ "kept_log": [],
+ "kept_log_pid": "math_14"
+}
