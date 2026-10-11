@@ -1,0 +1,37 @@
+doc_00 21600 148s
+doc_02 21600 118s
+doc_04 21600 127s
+doc_06 21600 125s
+doc_08 21600 119s
+doc_10 21600 128s
+doc_12 21600 127s
+doc_14 21600 118s
+doc_16 21600 118s
+doc_18 21600 124s
+needle_00 21600 128s
+needle_02 21600 108s
+needle_04 21600 117s
+/home/neymankv/alloc/allocation.py:19: RuntimeWarning: overflow encountered in multiply
+  f = lambda lam: np.clip(lam * a, lo, N).sum()
+/home/neymankv/alloc/allocation.py:19: RuntimeWarning: invalid value encountered in multiply
+  f = lambda lam: np.clip(lam * a, lo, N).sum()
+/home/neymankv/alloc/allocation.py:29: RuntimeWarning: invalid value encountered in multiply
+  return np.clip(hi_l * a, lo, N)
+/home/neymankv/alloc/allocation.py:49: RuntimeWarning: invalid value encountered in cast
+  f = lambda D: np.clip(np.floor(shares / D + 0.5), lo, N).astype(np.int64)
+/home/neymankv/alloc/allocation.py:63: RuntimeWarning: overflow encountered in scalar subtract
+  r = B - n.sum()
+Traceback (most recent call last):
+  File "/home/neymankv/experiments/t1.py", line 94, in <module>
+    main()
+  File "/home/neymankv/experiments/t1.py", line 82, in main
+    df = run_prompt(meta)
+  File "/home/neymankv/experiments/t1.py", line 64, in run_prompt
+    idx, bias = M.select(head, spec, B, rng)
+  File "/home/neymankv/estimate/methods.py", line 117, in select
+    lab_t = head.labels(m["strata"], m["bits"])
+  File "/home/neymankv/alloc/allocation.py", line 84, in neyman
+    return webster(shares, N, B)
+  File "/home/neymankv/alloc/allocation.py", line 70, in webster
+    assert n.sum() == B and np.all(n <= N) and np.all(n >= 0)
+AssertionError

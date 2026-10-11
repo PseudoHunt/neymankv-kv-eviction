@@ -24,6 +24,7 @@ PARTS = os.path.join(ROOT, "runs", "t1_parts")
 def method_specs(B):
     specs = [dict(name="random_uniform", strata="-", alloc="-", reweight=True, seeds=SEEDS),
              dict(name="random_pnorm", strata="-", alloc="-", reweight=True, seeds=SEEDS),
+             dict(name="random_pnorm_naiveHT", strata="-", alloc="-", reweight=True, seeds=SEEDS),
              dict(name="simbin", strata="post", alloc="proportional", within="oldest_first_evict", reweight=False, seeds=[0]),
              dict(name="topk_oracle", strata="-", alloc="-", reweight=False, seeds=[0])]
     for b in (6, 8):

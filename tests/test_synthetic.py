@@ -176,3 +176,25 @@ def test_systematic_selection_counts():
     for how in ("random", "systematic", "oldest_first_evict"):
         idx = Sel.select_within(lab, n, how, np.arange(3000), rng)
         assert np.array_equal(np.bincount(lab[idx], minlength=20), n), how
+
+
+def test_pps_inclusion_probabilities():
+    rng = np.random.default_rng(3)
+    logw = rng.normal(0, 2.5, 300)            # heavy-tailed: several tokens capped at pi = 1
+    pi = Sel.inclusion_probs(logw, 40)
+    assert abs(pi.sum() - 40) < 1e-9 and pi.max() <= 1 + 1e-12 and (pi == 1).sum() > 0
+    hits = np.zeros(300)
+    for _ in range(20000):
+        idx = Sel.systematic_pps(pi, rng)
+        assert len(idx) == 40 and len(np.unique(idx)) == 40
+        hits[idx] += 1
+    big = pi > 0.05
+    assert np.all(np.abs(hits[big] / 20000 / pi[big] - 1) < 0.1)
+
+
+def test_neyman_zero_spread_strata():
+    Nh = np.array([500, 400, 300, 200, 100])
+    for S in (np.array([0.07, 0, 0, 0, 0]), np.zeros(5), np.array([1e-30, 0, 0, 2.0, 0]), np.array([np.nan, 1, 0, 0, 0])):
+        for B in (5, 37, 251, 600, 1499):
+            n = A.neyman(Nh, S, B)
+            assert n.sum() == B and np.all(n <= Nh) and np.all(n >= 1)

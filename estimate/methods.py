@@ -89,13 +89,20 @@ def select(head: Head, m: dict, B: int, rng: np.random.Generator):
     if name == "random_uniform":
         idx = np.sort(rng.choice(Nc, B, replace=False))
         return torch.as_tensor(idx, device=dev), torch.full((B,), float(np.log(Nc / B)), device=dev)
-    if name == "random_pnorm":
+    if name in ("random_pnorm", "random_pnorm_naiveHT"):
         d = head.k_post.shape[-1]
         s = (head.k_post[head.cand].double().norm(dim=-1) ** 2 / (2 * d ** 0.5)).cpu().numpy()
-        g = s + rng.gumbel(size=Nc)                       # Gumbel top-B = weighted sampling w/o replacement
-        idx = np.sort(np.argpartition(-g, B)[:B])
-        lse = np.logaddexp.reduce(s)
-        bias = -s[idx] + lse - np.log(B)                  # 1/pi_i with pi_i ~= B e^{s_i} / sum_j e^{s_j}
+        if name == "random_pnorm":
+            # sample with pi_i ∝ exp(s_i) (capped at 1), compensating logit -log pi_i = -s_i + const
+            pi = Sel.inclusion_probs(s, B)
+            idx = Sel.systematic_pps(pi, rng)
+            bias = -np.log(pi[idx])
+        else:
+            # first implementation (kept for the report): Gumbel top-B with the uncapped approximation
+            # pi_i ~= B e^{s_i} / sum_j e^{s_j}; breaks when most mass sits on a few large-norm tokens
+            g = s + rng.gumbel(size=Nc)
+            idx = np.sort(np.argpartition(-g, B)[:B])
+            bias = -s[idx] + np.logaddexp.reduce(s) - np.log(B)
         return torch.as_tensor(idx, device=dev), torch.as_tensor(bias, device=dev)
     if name == "topk_oracle":
         mass = head.P[:, head.cand].sum(0)

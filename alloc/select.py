@@ -44,6 +44,35 @@ def reweight_bias(labels: np.ndarray, n: np.ndarray, idx: np.ndarray) -> np.ndar
     return np.log(N[lab] / n[lab])
 
 
+def inclusion_probs(log_w: np.ndarray, B: int) -> np.ndarray:
+    """pi_i = min(1, exp(log_w_i + log_c)) with sum(pi) = B; log_c by bisection in log space
+    (weights can span far more than float64's exp range)."""
+    log_w = np.asarray(log_w, dtype=np.float64)
+    f = lambda lc: np.exp(np.minimum(log_w + lc, 0.0)).sum()
+    lo, hi = -log_w.max() - 50.0, -log_w.min() + 50.0      # f(lo) ~ 0 < B <= len = f(hi)
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if f(mid) < B:
+            lo = mid
+        else:
+            hi = mid
+    pi = np.exp(np.minimum(log_w + hi, 0.0))
+    capped = pi >= 1.0
+    free = B - capped.sum()                                 # rescale the uncapped part to remove residue
+    pi[~capped] *= free / pi[~capped].sum()
+    return pi
+
+
+def systematic_pps(pi: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """Fixed-size sampling with exact inclusion probabilities pi (sum(pi) integer), random order."""
+    perm = rng.permutation(len(pi))
+    cum = np.cumsum(pi[perm])
+    B = int(round(cum[-1]))
+    pts = rng.random() + np.arange(B)
+    pos = np.searchsorted(cum, pts, side="right")
+    return np.sort(perm[np.minimum(pos, len(pi) - 1)])
+
+
 class Reservoir:
     """Algorithm R: uniform sample of size k from a stream."""
 

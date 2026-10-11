@@ -14,12 +14,20 @@ def waterfill(a: np.ndarray, N: np.ndarray, B: float, floor: float = 1.0) -> np.
         return N.copy()
     if lo.sum() >= B:
         return lo.copy()
-    if a.sum() <= 0:
-        a = N.copy()  # no signal: fall back to proportional
+    a = np.nan_to_num(a, nan=0.0, posinf=0.0)
+    pos = a > 0
+    if not pos.any():
+        a, pos = N.copy(), N > 0  # no signal: fall back to proportional
+    if N[pos].sum() + lo[~pos].sum() <= B:
+        # every stratum with signal is capped; the rest of the budget goes to zero-spread strata by size
+        out = lo.copy()
+        out[pos] = N[pos]
+        rest = ~pos
+        if rest.any():
+            out[rest] = waterfill(N[rest], N[rest], B - N[pos].sum(), floor)
+        return out
     f = lambda lam: np.clip(lam * a, lo, N).sum()
-    lo_l, hi_l = 0.0, 1.0
-    while f(hi_l) < B:
-        hi_l *= 2.0
+    lo_l, hi_l = 0.0, float((N[pos] / a[pos]).max())  # at hi_l every positive stratum is capped
     for _ in range(200):
         mid = 0.5 * (lo_l + hi_l)
         if f(mid) < B:
