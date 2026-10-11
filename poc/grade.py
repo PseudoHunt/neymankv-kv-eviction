@@ -32,9 +32,10 @@ def _norm(a: str) -> str:
         a = a.replace(x, "")
     a = a.replace("dfrac", "frac").replace("tfrac", "frac").replace("^\\circ", "").replace("^{\\circ}", "")
     a = a.replace("\\%", "").replace("%", "").replace("degrees", "").replace("units", "")
+    a = a.replace(" ", "").rstrip(".")
     a = re.sub(r"\\frac(\d)(\d)", r"\\frac{\1}{\2}", a)
     a = re.sub(r"\\sqrt(\d)", r"\\sqrt{\1}", a)
-    a = a.replace(" ", "").rstrip(".")
+    a = a.lower()
     a = re.sub(r"^[a-zA-Z]\s*=", "", a)
     if re.fullmatch(r"-?[\d,]+(\.\d+)?", a):
         a = a.replace(",", "")

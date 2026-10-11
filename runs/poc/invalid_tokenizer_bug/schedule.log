@@ -1,0 +1,8 @@
+[GPU clock 0h15m27s] stage S1 B=256: 7 jobs
+[GPU clock 0h15m27s] launched full_B256_math,gsm n=40
+[GPU clock 0h15m27s] launched random_B256_math,gsm n=40
+[GPU clock 0h15m27s] launched simbin_B256_math,gsm n=40
+[GPU clock 0h15m27s] launched rkvhash_released_B256_math,gsm n=40
+[GPU clock 0h44m09s] launched rkvhash_fixed_B256_math,gsm n=40
+[GPU clock 0h44m59s] launched neymankv_v1_B256_math,gsm n=40
+[GPU clock 0h45m19s] launched neymankv_noweight_B256_math,gsm n=40

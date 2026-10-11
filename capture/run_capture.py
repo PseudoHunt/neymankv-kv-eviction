@@ -26,8 +26,18 @@ SUMMARY_Q = "Question: Summarize the main findings and recommendations of the re
 NEEDLE_Q = "Question: What is the secret passcode stated in the document above? Reply with the passcode only."
 
 
+
+def load_tokenizer(name):
+    """transformers 5.x maps these repos' LlamaTokenizerFast to a rebuilt LlamaTokenizer that drops the byte-level
+    pre-tokenizer (spaces vanish). Load tokenizer.json directly and refuse to run unless a round trip is exact."""
+    from transformers import PreTrainedTokenizerFast
+    tok = PreTrainedTokenizerFast.from_pretrained(name)
+    s = "Hello world, the answer is 42.\nNext line"
+    assert tok.decode(tok(s, add_special_tokens=False)["input_ids"]) == s, f"tokenizer round trip failed for {name}"
+    return tok
+
 def load(name):
-    tok = AutoTokenizer.from_pretrained(name)
+    tok = load_tokenizer(name)
     model = AutoModelForCausalLM.from_pretrained(name, dtype=torch.bfloat16, attn_implementation="sdpa").cuda().eval()
     return tok, model
 

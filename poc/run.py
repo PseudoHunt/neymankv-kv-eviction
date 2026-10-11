@@ -22,8 +22,18 @@ THINK_END = 151649
 OUT = os.path.join(ROOT, "runs", "poc")
 
 
+
+def load_tokenizer(name):
+    """transformers 5.x maps these repos' LlamaTokenizerFast to a rebuilt LlamaTokenizer that drops the byte-level
+    pre-tokenizer (spaces vanish). Load tokenizer.json directly and refuse to run unless a round trip is exact."""
+    from transformers import PreTrainedTokenizerFast
+    tok = PreTrainedTokenizerFast.from_pretrained(name)
+    s = "Hello world, the answer is 42.\nNext line"
+    assert tok.decode(tok(s, add_special_tokens=False)["input_ids"]) == s, f"tokenizer round trip failed for {name}"
+    return tok
+
 def load():
-    tok = AutoTokenizer.from_pretrained(MODEL)
+    tok = load_tokenizer(MODEL)
     model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16, attn_implementation="eager").cuda().eval()
     return tok, model
 

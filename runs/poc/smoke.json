@@ -1,0 +1,226 @@
+[
+ {
+  "method": "full",
+  "n_gen": [
+   408,
+   512
+  ],
+  "correct": [
+   true,
+   false
+  ],
+  "tok_s": 55,
+  "n_compress": 0,
+  "kept": []
+ },
+ {
+  "method": "random",
+  "n_gen": [
+   415,
+   512
+  ],
+  "correct": [
+   true,
+   false
+  ],
+  "tok_s": 58,
+  "n_compress": 3,
+  "kept": [
+   {
+    "n_gen": 384,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   },
+   {
+    "n_gen": 448,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   }
+  ]
+ },
+ {
+  "method": "simbin",
+  "n_gen": [
+   408,
+   512
+  ],
+  "correct": [
+   false,
+   false
+  ],
+  "tok_s": 48,
+  "n_compress": 3,
+  "kept": [
+   {
+    "n_gen": 384,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   },
+   {
+    "n_gen": 448,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   }
+  ]
+ },
+ {
+  "method": "rkvhash_released",
+  "n_gen": [
+   411,
+   512
+  ],
+  "correct": [
+   true,
+   false
+  ],
+  "tok_s": 58,
+  "n_compress": 3,
+  "kept": [
+   {
+    "n_gen": 384,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 356
+   },
+   {
+    "n_gen": 448,
+    "cache_len": 380,
+    "gen_kept_min": 322,
+    "gen_kept_max": 372
+   }
+  ]
+ },
+ {
+  "method": "rkvhash_fixed",
+  "n_gen": [
+   415,
+   512
+  ],
+  "correct": [
+   true,
+   false
+  ],
+  "tok_s": 58,
+  "n_compress": 3,
+  "kept": [
+   {
+    "n_gen": 384,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   },
+   {
+    "n_gen": 448,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   }
+  ]
+ },
+ {
+  "method": "neymankv_v1",
+  "n_gen": [
+   408,
+   512
+  ],
+  "correct": [
+   false,
+   false
+  ],
+  "tok_s": 45,
+  "n_compress": 3,
+  "kept": [
+   {
+    "n_gen": 384,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   },
+   {
+    "n_gen": 448,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   }
+  ]
+ },
+ {
+  "method": "neymankv_noweight",
+  "n_gen": [
+   408,
+   512
+  ],
+  "correct": [
+   true,
+   false
+  ],
+  "tok_s": 45,
+  "n_compress": 3,
+  "kept": [
+   {
+    "n_gen": 384,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   },
+   {
+    "n_gen": 448,
+    "cache_len": 380,
+    "gen_kept_min": 320,
+    "gen_kept_max": 320
+   }
+  ]
+ },
+ {
+  "method": "full",
+  "throughput": {
+   "method": "full",
+   "budget": 256,
+   "n_problems": 8,
+   "gen_tokens": 4088,
+   "wall_s": 17.65412974357605,
+   "tok_per_s": 231.56055038552856,
+   "peak_mem_gb": 3.7267208099365234,
+   "n_compress": 0,
+   "compress_s": 0.0,
+   "slots": 8,
+   "max_new": 512
+  }
+ },
+ {
+  "method": "neymankv_v1",
+  "throughput": {
+   "method": "neymankv_v1",
+   "budget": 256,
+   "n_problems": 8,
+   "gen_tokens": 4088,
+   "wall_s": 23.139599561691284,
+   "tok_per_s": 176.66684287691305,
+   "peak_mem_gb": 3.8555731773376465,
+   "n_compress": 16,
+   "compress_s": 0.28742313385009766,
+   "slots": 8,
+   "max_new": 512
+  }
+ },
+ {
+  "method": "rkvhash_released",
+  "throughput": {
+   "method": "rkvhash_released",
+   "budget": 256,
+   "n_problems": 8,
+   "gen_tokens": 4088,
+   "wall_s": 18.197432041168213,
+   "tok_per_s": 224.64708156357892,
+   "peak_mem_gb": 3.977686882019043,
+   "n_compress": 16,
+   "compress_s": 0.019578218460083008,
+   "slots": 8,
+   "max_new": 512
+  }
+ }
+]
