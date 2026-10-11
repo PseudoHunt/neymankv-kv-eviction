@@ -1,0 +1,28 @@
+[GPU clock 1h11m46s] start full B=256 sets=math,gsm n=40
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 8026.36it/s]
+[1h14m43s] full B=256 math_141: n=2152 ok=True pred='2'
+[1h15m58s] full B=256 math_14: n=3072 ok=False pred='None'
+[1h15m58s] full B=256 math_16: n=3072 ok=False pred='None'
+[1h15m58s] full B=256 math_38: n=3072 ok=False pred='None'
+[1h15m58s] full B=256 math_97: n=3072 ok=False pred='None'
+[1h15m58s] full B=256 math_187: n=3072 ok=False pred='None'
+[1h15m58s] full B=256 math_262: n=3072 ok=False pred='None'
+[1h15m58s] full B=256 math_370: n=3072 ok=False pred='None'
+[1h16m26s] full B=256 math_98: n=1270 ok=True pred='2k + 2'
+[1h17m28s] full B=256 math_384: n=1008 ok=True pred='15x - 80'
+[1h19m25s] full B=256 math_218: n=2196 ok=True pred='(-1, 6)'
+[1h20m53s] full B=256 math_209: n=3072 ok=False pred='None'
+[1h20m53s] full B=256 math_265: n=3072 ok=False pred='4004'
+[1h20m53s] full B=256 math_318: n=3072 ok=False pred='None'
+[1h20m53s] full B=256 math_452: n=3072 ok=False pred='None'
+[1h20m53s] full B=256 math_485: n=3072 ok=False pred='None'
+[1h21m27s] full B=256 math_6: n=3072 ok=False pred='None'
+[1h22m31s] full B=256 math_30: n=3072 ok=False pred='None'
+[1h22m42s] full B=256 math_492: n=1120 ok=True pred='y = -2x'
+[1h22m50s] full B=256 math_91: n=2079 ok=True pred='1'
+[1h22m52s] full B=256 math_146: n=1224 ok=False pred='None'
+[1h23m09s] full B=256 math_393: n=1395 ok=False pred='\\dfrac{155}{226}'
+[1h24m06s] full B=256 math_420: n=2096 ok=False pred='\\begin{pmatrix} \\dfrac{16}{49}'
+[1h24m42s] full B=256 math_235: n=1448 ok=True pred='\\dfrac{5}{9}'
+[1h25m25s] full B=256 math_260: n=3072 ok=False pred='None'

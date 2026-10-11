@@ -4,6 +4,10 @@ from datasets import load_dataset
 
 SUFFIX = "\nPlease reason step by step, and put your final answer within \\boxed{}."
 CODE = "7391-KQ"
+# The chat template already ends with "<think>\n" (prompt, protected), so only this note is forced as generated text.
+# "Okay," keeps the model reasoning: without it the model closes </think> right after the note (6/8 problems),
+# traces stay too short for B=256 to evict anything, and even full-cache restates the code 0-1/8 (variant test).
+FORCED_PREFIX = f"Note to self: the access code is {CODE}.\n\nOkay,"
 
 
 def problems():
@@ -23,6 +27,13 @@ def problems():
         q = f"The access code is {CODE}. Remember it.\n" + g[i]["question"]
         out.append(dict(pid=f"probe_{i}", set="probe", question=q, gold=g[i]["answer"].split("####")[-1].strip().replace(",", ""),
                         suffix_extra=" After the answer, restate the access code."))
+    # forced-prefix probe: the code is stated only in teacher-forced *generated* tokens (evictable region);
+    # the recall instruction stays in the (protected) prompt.
+    for i in pick[40:60]:
+        out.append(dict(pid=f"forced_{i}", set="forced", question=g[i]["question"],
+                        gold=g[i]["answer"].split("####")[-1].strip().replace(",", ""),
+                        suffix_extra=" After the answer, restate the access code.",
+                        forced_prefix=FORCED_PREFIX))
     return out
 
 

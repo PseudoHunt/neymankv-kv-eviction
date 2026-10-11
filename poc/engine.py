@@ -21,7 +21,9 @@ class Engine:
     def __init__(self, model, tok, method: str, budget: int, n_slots: int = 8, max_new: int = 3072,
                  interval: int = 64, recent: int = 64, cap_prompt: int = 512, seed: int = 0, policy_kw=None,
                  attn_fp32: bool = False):
-        self.attn_fp32 = attn_fp32  # fp32 attention (scores + PV), used only to isolate the bias path in check 3
+        self.attn_fp32 = attn_fp32
+        self.hf_shape_attn = False   # diagnostic: HF eager GEMM shapes (repeat_kv to all Q heads)
+        self.trace = None            # diagnostic: list collecting the residual stream after each layer  # fp32 attention (scores + PV), used only to isolate the bias path in check 3
         self.m, self.tok = model, tok
         cfg = model.config
         self.nL, self.Hq, self.Hkv = cfg.num_hidden_layers, cfg.num_attention_heads, cfg.num_key_value_heads
@@ -115,6 +117,16 @@ class Engine:
             self.qwin[l, :, :, -1] = q[:, :, 0]
             self.policy.on_insert(l, ar, idx, k_pre[:, :, 0], k[:, :, 0])
             Kl, Vl = self.K[l, :, :, :Lm], self.V[l, :, :, :Lm]
+            if self.hf_shape_attn:
+                kr, vr = Kl.repeat_interleave(self.G, 1), Vl.repeat_interleave(self.G, 1)       # [S, Hq, Lm, d]
+                bq = self.bias[l, :, :, :Lm].repeat_interleave(self.G, 1)[:, :, None, :]
+                sc = (torch.matmul(q, kr.transpose(-1, -2)) * self.scale).float() + bq
+                o = torch.matmul(torch.softmax(sc, dim=-1).to(self.dtype), vr).transpose(1, 2).reshape(S, 1, -1)
+                x = x + attn.o_proj(o)
+                x = x + layer.mlp(layer.post_attention_layernorm(x))
+                if self.trace is not None:
+                    self.trace.append(x.detach().clone())
+                continue
             qg = q.view(S, self.Hkv, self.G, self.d)
             if self.attn_fp32:
                 sc = torch.matmul(qg.float(), Kl.float().transpose(-1, -2)) * self.scale + self.bias[l, :, :, None, :Lm]
@@ -127,6 +139,8 @@ class Engine:
             o = o.reshape(S, 1, self.Hq * self.d)
             x = x + attn.o_proj(o)
             x = x + layer.mlp(layer.post_attention_layernorm(x))
+            if self.trace is not None:
+                self.trace.append(x.detach().clone())
         self.L += active.long()
         x = self.m.model.norm(x[:, 0])
         return self.m.lm_head(x).float()

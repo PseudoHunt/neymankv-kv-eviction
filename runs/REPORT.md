@@ -1,5 +1,15 @@
 # NeymanKV offline experiments: T-1, T0, T1
 
+> **⚠ Erratum (added 2026-10-11): all reasoning-trace results in this report are INVALID.** The 15 reasoning
+> captures were generated with `DeepSeek-R1-Distill-Qwen-7B` loaded through `AutoTokenizer` under transformers 5.7. That
+> loads the repo's `LlamaTokenizerFast` as a rebuilt `LlamaTokenizer` that drops the byte-level pre-tokenizer, so
+> **every space was removed from the prompts** ("Hello world" became "Helloworld"). The traces are the model's response
+> to garbled problems. Every `reasoning` row, column, and statement below (Gate A reasoning captures, T-1, T0, T1, the
+> reasoning half of Gate E, the right-hand plot panel, surprise 5) is kept for the record but must not be used. A
+> re-capture (~45 GPU-min) is deferred to the exhaustive phase. **The long-document results (Qwen3-4B, whose `Qwen2Tokenizer`
+> is unaffected) stand.** Fix: `capture/run_capture.py::load_tokenizer` loads `tokenizer.json` via
+> `PreTrainedTokenizerFast` and asserts an exact encode/decode round trip.
+
 **Question.** When the KV cache is split into SimHash strata, does allocating the budget by output variance
 (Neyman) beat allocating by stratum size (proportional, SimBin's rule)? Do values need to be part of that variance?
 
@@ -9,7 +19,7 @@
   and 37–70% vs uniform random (both prompt types, both budgets). Value-aware S_h is modestly better than key-only on long docs (0.124 vs 0.145 at 10%).
 - *With the attention-free proxy S_h* (Gaussian model of the last 256 observed queries): **no on long documents**.
   Every proxy configuration is *worse* than plain uniform random sampling (33–124% higher error) and worse than proportional.
-  On reasoning traces it is mixed to mildly positive: −7% to +31% vs uniform random.
+  *(The reasoning-trace numbers, −7% to +31% vs uniform random, are INVALID; see erratum.)*
 - **Gate E passes as literally specified, but only because the specified baseline (`random_pnorm`) is very weak on these
   keys.** Against uniform random or proportional-with-reweighting, the proxy fails on long documents. The oracle passes
   against every baseline. **The bottleneck is the S_h proxy, not Neyman allocation.**
@@ -26,7 +36,7 @@ averaged over held-out queries and over seeds, and the median is taken over head
 | Capture model | `Qwen/Qwen3-4B`, bf16, SDPA (36 layers, 8 KV heads, 32 Q heads, d=128). Layers kept: 0,4,…,32 |
 | Reasoning model | `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`, bf16, SDPA (28 layers, 4 KV heads, 28 Q heads). Layers kept: 0,4,…,24 |
 | Long docs (25) | 20 GovReport test reports, 4,000–7,600 tokens (`ccdv/govreport-summarization`), + 5 synthetic needles (passcode at random depth 10–90% in GovReport filler). Qwen3-4B answered **5/5** needles correctly |
-| Reasoning (15) | MATH500 level ≥4 problems, T=0.6, top-p 0.95, ≤4,096 new tokens. Trace lengths 1,579–4,096; **8/15 hit the 4K cap** |
+| Reasoning (15) — **INVALID (garbled prompts, see erratum)** | MATH500 level ≥4 problems, T=0.6, top-p 0.95, ≤4,096 new tokens. Trace lengths 1,579–4,096; **8/15 hit the 4K cap** |
 | Cut | Long docs: start of the question. Reasoning: 60% of the trace. Cache = tokens before the cut. Held-out queries: the next 512 positions × all grouped Q heads (2,048 per KV head for Qwen3, 3,584 for R1). Observed queries: the 256 positions before the cut |
 | Always kept | First 4 + last 64 cache tokens, for every method. Budget = 10% / 25% of the remaining (evictable) tokens |
 | GPU time | Capture 843 s (docs) + 2,711 s (reasoning) ≈ 1.0 GPU-h. T-1/T0/T1 ≈ 2.5 h light GPU use (fp32 matmuls) |
@@ -61,7 +71,7 @@ tolerance cannot apply. Two checks replace it:
 - **Inverse:** fp64 inverse rotation vs pre-RoPE key: median per-token relative error 2.0e-3 (max 8.8e-3). That is the
   bf16 rounding floor (2^-8 = 3.9e-3).
 
-## 4. Gate C (T-1): CONTINUE (`runs/t_minus_1.csv`, `runs/t_minus_1.md`)
+## 4. Gate C (T-1): CONTINUE (decided on long_doc; reasoning rows INVALID) (`runs/t_minus_1.csv`, `runs/t_minus_1.md`)
 
 Median predicted gain CV²/(1+CV²) over `pre`/`pre_pos_norm` strata, all bits:
 
@@ -75,7 +85,7 @@ gain_val does not exceed gain_key by ≥ 0.03 (key-only). The two gains measure 
 attention output), so they are not comparable. T1 therefore ran both, and measured error decided (§6).
 By layer, gains are smallest in layer 0 (0.05 long-doc) and largest in deep layers (0.93–0.96 for key at layers 28–32).
 
-## 5. T0: R-KVHash scorer on real keys (`runs/t0_rkvhash.csv`, `runs/t0_rkvhash.md`)
+## 5. T0: R-KVHash scorer on real keys (reasoning columns INVALID) (`runs/t0_rkvhash.csv`, `runs/t0_rkvhash.md`)
 
 The replica follows `kvpress/presses/rkv_press_lsh.py` (branch `dixi/rkv_lsh`) line by line: bf16 normalization and
 projection, `torch.randn(d, b)` shared across heads, bf16 `scatter_add_` counts, (counts @ cos(Ham/b) − counts)/N,
@@ -105,7 +115,7 @@ Findings:
   what `compress_decoding` does. The code's default `lam=0.1` (attention from the last 8 queries minus 0.9·redundancy) is much
   better: 0.316 / 0.211 at 10% (long_doc / reasoning). It is reported in T1 as `rkvhash_lam0.1`.
 
-## 6. Gate E (T1): PASS as specified. Substantively, the oracle passes and the proxy fails on long documents
+## 6. Gate E (T1): long_doc half only; the reasoning half cannot be evaluated (INVALID captures)
 
 `runs/t1_results.csv` (688,200 rows), `runs/t1_summary.md`, `runs/t1_summary.csv`.
 
@@ -152,7 +162,7 @@ across the question boundary, rather than an artifact of the Gaussian approximat
 next 512 queries continue the same trace, both proxies help (best non-oracle stratified method: neyman_observed_val
 [pre_pos_norm] at 25%, 0.092).
 
-### Required ablations (median error; long_doc 10% / 25% | reasoning 10% / 25%)
+### Required ablations (median error; long_doc 10% / 25% | reasoning 10% / 25%, reasoning INVALID)
 
 **Reweighting on vs off (fixed allocation):** reweighting is essential on long documents and mixed on reasoning.
 
@@ -205,7 +215,7 @@ of each other everywhere. Values help by about 10–15% when S_h is accurate.
    B·e^{s_i}/Σe^{s}, which breaks completely here.
 4. **On long documents, observed-query proxies are worse than no proxy at all.** Uniform random is better than either proxy, even though the oracle shows
    a 45–64% opportunity.
-5. **On reasoning, deterministic methods with recency do well:** SimBin (keeps newest) beats every proxy-Neyman method at 10% (0.296),
+5. *(INVALID: reasoning captures)* **On reasoning, deterministic methods with recency do well:** SimBin (keeps newest) beats every proxy-Neyman method at 10% (0.296),
    and rkvhash_lam0.1 is the best non-oracle method on reasoning (0.211 / 0.089).
 
 ## 8. Deviations from the brief, choices, and fixes (all deliberate; flagged here)

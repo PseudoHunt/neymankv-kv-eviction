@@ -1,0 +1,6 @@
+[GPU clock 1h11m42s] stage S1 B=256: 7 jobs
+[GPU clock 1h11m42s] launched full_B256_math,gsm n=40
+[GPU clock 1h11m42s] launched random_B256_math,gsm n=40
+[GPU clock 1h11m42s] launched simbin_B256_math,gsm n=40
+[GPU clock 1h11m42s] launched rkvhash_released_B256_math,gsm n=40
+[GPU clock 1h24m08s] stage S1 B=256: 7 jobs

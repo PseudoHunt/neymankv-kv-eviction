@@ -63,7 +63,7 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
         results.append(dict(pid=p["pid"], set=p["set"], gold=p["gold"], pred=pred, correct=grade.correct(pred, p["gold"]),
                             n_gen=len(x["gen"]), hit_cap=len(x["gen"]) >= max_new, think_closed=THINK_END in x["gen"],
                             loop=grade.has_loop(x["gen"]), passcode_answer=data.CODE in ans and "</think>" in text,
-                            passcode_any=data.CODE in text, prompt_len=x["P"], text=text))
+                            passcode_any=data.CODE in text[len(x["p"].get("forced_prefix", "")):], prompt_len=x["P"], text=text))
         if verbose:
             r = results[-1]
             print(f"[{clock.fmt()}] {method} B={budget} {r['pid']}: n={r['n_gen']} ok={r['correct']} pred={str(r['pred'])[:30]!r}", flush=True)
@@ -75,7 +75,10 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
         gens[s].manual_seed(seed * 1000003 + zlib.crc32(p["pid"].encode()))
         logits = e.prefill(s, ids)
         t = sample(logits[None], [gens[s]])
-        st[s] = dict(p=p, P=len(ids), gen=[int(t)], boxed_after=False)
+        forced = tok(p["forced_prefix"], add_special_tokens=False)["input_ids"] if p.get("forced_prefix") else []
+        if forced:
+            t = torch.tensor([forced[0]], device=dev)
+        st[s] = dict(p=p, P=len(ids), gen=[int(t)], boxed_after=False, forced=forced[1:])
         tokens[s] = t[0]
         positions[s] = len(ids)
 
@@ -101,6 +104,8 @@ def generate(model, tok, probs, method, budget, slots=8, max_new=3072, seed=0, l
                     g = (e.pos[:, s, :, :Ln] >= P).sum(-1)
                     kept_log.append(dict(n_gen=n_in, cache_len=Ln, gen_kept_min=int(g.min()), gen_kept_max=int(g.max())))
             t = nl[s]
+            if x["forced"]:                              # teacher-force the remaining prefix tokens
+                t = x["forced"].pop(0)
             stop = t == tok.eos_token_id
             if not stop:
                 x["gen"].append(t)

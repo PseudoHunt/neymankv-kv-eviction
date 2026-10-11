@@ -1,0 +1,26 @@
+[GPU clock 1h11m46s] start simbin B=256 sets=math,gsm n=40
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|                                                                                                                                        | 0/339 [00:00<?, ?it/s]Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 339/339 [00:00<00:00, 8158.25it/s]
+[1h13m43s] simbin B=256 math_187: n=1322 ok=True pred='7'
+[1h13m49s] simbin B=256 math_262: n=1396 ok=True pred='4'
+[1h14m12s] simbin B=256 math_38: n=1688 ok=True pred='2000'
+[1h14m25s] simbin B=256 math_16: n=1846 ok=True pred='-50'
+[1h15m38s] simbin B=256 math_218: n=1062 ok=True pred='(-1, 6)'
+[1h16m08s] simbin B=256 math_14: n=3072 ok=False pred='None'
+[1h16m08s] simbin B=256 math_97: n=3072 ok=False pred='None'
+[1h16m08s] simbin B=256 math_141: n=3072 ok=False pred='None'
+[1h16m08s] simbin B=256 math_370: n=3072 ok=False pred='None'
+[1h16m20s] simbin B=256 math_98: n=1896 ok=True pred='2k + 2'
+[1h18m05s] simbin B=256 math_318: n=1552 ok=False pred='\\dfrac{9a + 1}{20}'
+[1h18m22s] simbin B=256 math_209: n=3072 ok=False pred='None'
+[1h19m07s] simbin B=256 math_265: n=3072 ok=False pred='None'
+[1h21m05s] simbin B=256 math_146: n=1599 ok=True pred='\\dfrac{\\sqrt{3}}{3}'
+[1h21m13s] simbin B=256 math_384: n=3072 ok=False pred='None'
+[1h21m13s] simbin B=256 math_452: n=3072 ok=False pred='None'
+[1h21m13s] simbin B=256 math_485: n=3072 ok=False pred='None'
+[1h21m13s] simbin B=256 math_6: n=3072 ok=False pred='None'
+[1h21m17s] simbin B=256 math_30: n=2968 ok=True pred='52_8'
+[1h23m16s] simbin B=256 math_91: n=3072 ok=False pred='None'
+[1h24m06s] simbin B=256 math_260: n=3072 ok=False pred='None'
+[1h24m29s] simbin B=256 math_215: n=2117 ok=True pred='2'
+[1h25m03s] simbin B=256 math_235: n=2504 ok=True pred='\\dfrac{5}{9}'
